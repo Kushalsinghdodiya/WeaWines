@@ -21,7 +21,7 @@ const AppNavigator = props => {
         />
 
         <Stack.Screen
-          name="DailyTestSeries"
+          name="SignUp"
           component={SignUp}
           options={{
             headerShown: false,
