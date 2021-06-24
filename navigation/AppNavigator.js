@@ -5,7 +5,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import SignIn from '../screens/SignIn';
 import SignUp from '../screens/SignUp';
-
+import WineriesDetail from '../screens/WineriesDetail';
+import Home from '../screens/Home';
 const Stack = createStackNavigator();
 
 const AppNavigator = props => {
@@ -25,12 +26,34 @@ const AppNavigator = props => {
           component={SignUp}
           options={{
             headerShown: false,
-            //  headerTitleStyle: {
-            //     fontWeight: 'bold',
+          }}
+        />
 
-            //     color: '#000',
-            //     fontSize: 18,
-            // },
+      
+
+<Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="WineriesDetais"
+          component={WineriesDetail}
+          options={{
+            title: 'ANTOINE JOBARD',
+
+            headerStyle: {
+              backgroundColor: '#800101', //Set Header color
+            },
+            // headerTintColor: '#fff', //Set Header text color
+
+            headerTitleStyle: {
+              color: '#fff',
+              fontSize: 18,
+            },
           }}
         />
       </Stack.Navigator>

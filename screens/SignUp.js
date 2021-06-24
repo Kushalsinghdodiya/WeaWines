@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Input, Button, Header} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function SignUp() {
+export default function SignUp({route,navigation}) {
   return (
     <View style={styles.container}>
       {/* <Header
@@ -39,7 +39,7 @@ export default function SignUp() {
           rightIcon={<Icon name="eye" size={24} color="black" />}
         />
 
-        <Button buttonStyle={styles.SignupBtn} title="Signup" />
+        <Button onPress={()=>navigation.navigate('Home')} buttonStyle={styles.SignupBtn} title="Signup" />
       </View>
 
       <View style={styles.option3}>
