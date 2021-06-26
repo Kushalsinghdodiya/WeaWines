@@ -37,7 +37,7 @@ export default function SignIn({route,navigation}) {
           </TouchableOpacity>
         </View>
 
-        <Button buttonStyle={styles.loginBtn} onPress={()=>navigation.navigate('Home')} title="Login" />
+        <Button buttonStyle={styles.loginBtn} onPress={()=>navigation.navigate('Filters')} title="Login" />
 
         <View style={styles.option}>
           <Text style={{fontSize: 15}}>or</Text>

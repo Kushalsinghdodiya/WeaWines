@@ -10,6 +10,7 @@ import WineriesDetail from '../screens/WineriesDetail';
 import Home from '../screens/Home';
 import Account from '../screens/Account';
 import Updates from '../screens/Updates';
+import Filters from '../screens/Filters';
 const Stack = createStackNavigator();
 
 const AppNavigator = props => {
@@ -60,18 +61,29 @@ const AppNavigator = props => {
         />
        
 
-       {/* <Stack.Screen
-          name="Account"
-          component={Updates}
-          options={{
-            title: 'ACCOUNT',
-          }}
-        /> */}
+      
         <Stack.Screen
           name="WineriesDetais"
           component={WineriesDetail}
           options={{
             title: 'ANTOINE JOBARD',
+
+            headerStyle: {
+              backgroundColor: '#800101', //Set Header color
+            },
+
+            headerTitleStyle: {
+              color: '#fff',
+              fontSize: 18,
+            },
+          }}
+        />
+
+          <Stack.Screen
+          name="Filters"
+          component={Filters}
+          options={{
+            title: 'FILTERS',
 
             headerStyle: {
               backgroundColor: '#800101', //Set Header color
