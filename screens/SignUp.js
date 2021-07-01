@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Input, Button, Header} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import Icons from 'react-native-vector-icons/Entypo';
 export default function SignUp({route,navigation}) {
   return (
     <View style={styles.container}>
@@ -11,40 +11,44 @@ export default function SignUp({route,navigation}) {
        
         /> */}
       <View style={styles.header}>
-        <Text style={{fontSize: 25, marginBottom: 5}}>Create </Text>
-        <Text style={{fontSize: 20}}>an account</Text>
+        <Text style={{fontSize: 22, marginBottom: 5 , color:'#505050'}}>Create </Text>
+        <Text style={{fontSize: 22,color:'#505050'}}>an account</Text>
       </View>
 
       <View style={styles.sub_container}>
         <View style={styles.row}>
           <View style={styles.col}>
-            <Input placeholder="First Name" />
+            <Input placeholder="First Name" placeholderTextColor="#505050" style={{fontSize:15, paddingBottom:-5, }} />
           </View>
-          <View style={styles.col}>
-            <Input placeholder="Last Name" />
+          <View style={styles.col} >
+            <Input placeholder="Last Name" placeholderTextColor="#505050" style={{fontSize:15, paddingBottom:-5}} />
           </View>
         </View>
 
-        <Input placeholder="Contact No#" />
-        <Input placeholder="Email" />
+        <Input placeholder="Contact No#" placeholderTextColor="#505050" style={{fontSize:15, paddingBottom:-5}}/>
+        <Input placeholder="Email"  placeholderTextColor="#505050" style={{fontSize:15, paddingBottom:-5}}/>
         <Input
           placeholder="Password"
           secureTextEntry={true}
-          rightIcon={<Icon name="eye" size={24} color="black" />}
+          placeholderTextColor="#505050"
+          style={{fontSize:15, paddingBottom:-5}}
+          rightIcon={<Icon name="eye" size={20} color="black" />}
         />
 
         <Input
           placeholder="Confirm Password"
           secureTextEntry={true}
-          rightIcon={<Icon name="eye" size={24} color="black" />}
+          placeholderTextColor="#505050"
+          style={{fontSize:15, paddingBottom:-5}}
+          rightIcon={<Icons name="eye-with-line" size={20} color="black" />}
         />
 
-        <Button onPress={()=>navigation.navigate('Home')} buttonStyle={styles.SignupBtn} title="Signup" />
+        <Button onPress={()=>navigation.navigate('SignUp')} buttonStyle={styles.SignupBtn} title="Signup" />
       </View>
 
       <View style={styles.option3}>
         <Text>
-          Don't have an account ? <Text style={styles.login}>Login</Text> here
+          Don't have an account ? <Text  onPress={() => navigation.navigate('SignIn')} style={styles.login}>Login</Text> here
         </Text>
       </View>
     </View>
@@ -55,10 +59,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+  
   },
   sub_container: {
     padding: 10,
+    marginTop:30
   },
 
   row: {
@@ -70,11 +75,11 @@ const styles = StyleSheet.create({
   },
   SignupBtn: {
     backgroundColor: '#800101',
-    borderRadius: 25,
-    height: 40,
+    borderRadius: 23,
+    height: 45,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: 25,
     marginBottom: 10,
   },
   SignupText: {
@@ -84,6 +89,7 @@ const styles = StyleSheet.create({
   option3: {
     alignItems: 'center',
     margin: 5,
+    marginTop:60
   },
   login: {
     color: '#800101',
@@ -92,5 +98,6 @@ const styles = StyleSheet.create({
   header: {
     display: 'flex',
     paddingLeft: 20,
+    marginTop:50
   },
 });

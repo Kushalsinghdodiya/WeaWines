@@ -4,6 +4,7 @@ import {
   ScrollView,
   Image,
   Text,
+  StatusBar,
   TouchableOpacity,
   View,
   ImageBackground,
@@ -11,13 +12,17 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CardSilder from 'react-native-cards-slider';
 import WineriesDetail from './WineriesDetail';
+import ImageOverlay from 'react-native-image-overlay';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { widthPercentageToDP } from 'react-native-responsive-screen';
 
 export default function Home() {
   return (
     <View style={styles.container}>
       <SafeAreaView>
-        <ScrollView>
+      <StatusBar barStyle="dark-content" backgroundColor="#424242" />
+        <ScrollView  
+        contentContainerStyle={{justifyContent:'center', width:widthPercentageToDP(100)}} >
           <View style={styles.headerImageWrapper}>
             <ImageBackground
               style={styles.theImageInside}
@@ -43,7 +48,13 @@ export default function Home() {
                     </View>
                   </View>
 
-                  <View style={styles.col2}>
+                  <View style={{
+                     width: '50%',
+                     height: 150,
+                     display: 'flex',
+                     justifyContent: 'center',
+                     marginLeft:-13
+                  }}>
                     <Text style={styles.heading}>Champagne Savart New</Text>
                     <Text style={styles.heading}>Release Allocation</Text>
 
@@ -54,22 +65,22 @@ export default function Home() {
                         justifyContent: 'space-between',
                       }}>
                       <Text style={{fontSize: 15, color: '#f5f6fa'}}>
-                        {' '}
+                        {'  '}
                         <Icon name="user" size={18} color="black" /> Admin
                       </Text>
                       <Text style={{fontSize: 14, color: '#f5f6fa'}}>
-                        {' '}
-                        <Icon name="calendar-o" size={18} color="black" />
+                        {'   '}
+                        <Icon name="calendar-o" size={18} color="black" style={{marginLeft:5}} />
                         19 Jan 2021
                       </Text>
                     </View>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity style={{flexDirection:'row'}}>
                       <Text style={{fontSize: 15, color: '#f5f6fa'}}>
-                        EXPLORE{' '}
+                        EXPLORE{'     '}
                         <Icon
                           name="long-arrow-right"
-                          style={{margin: 14}}
+                          style={{marginLeft:20, marginTop:-5}}
                           size={25}
                           color="black"
                         />
@@ -187,7 +198,7 @@ export default function Home() {
             </View>
           </CardSilder>
 
-          <View style={{padding: 10}}>
+          <View style={{padding: 10,marginTop:-25}}>
             <Text style={{fontSize: 20, margin: 10}}>
               WEA from Home Subscription
             </Text>
@@ -211,6 +222,7 @@ export default function Home() {
                       </Text>
                     </View>
                   </ImageBackground>
+                  
                 </View>
               </TouchableOpacity>
             </View>
@@ -238,16 +250,24 @@ export default function Home() {
           </View>
 
           <View style={{padding: 10}}>
-            <Text style={{fontSize: 20, margin: 10}}>WEA from Home </Text>
+            <Text style={{fontSize: 20, margin: 10}}>Events </Text>
           </View>
 
           <CardSilder>
             <TouchableOpacity>
               <View style={styles.card}>
-                <Image
+              <ImageOverlay
+          style={{alignSelf: 'center'}}
+          source={require('../navigation/assets/images/cardiimg.png')}
+          height={2.2 * 100}
+          title="Lorem ipsum dolor sit amet con..."
+          contentPosition="bottom"
+          titleStyle={{fontSize: 16, textTransform: 'uppercase', marginLeft:-10, }}
+        />
+                {/* <Image
                   style={styles.image}
                   source={require('../navigation/assets/images/cardiimg.png')}
-                />
+                /> */}
                 <View style={styles.detailContainer}>
                   <Text style={styles.text}>
                     {' '}
@@ -282,10 +302,10 @@ export default function Home() {
                 />
                 <View style={styles.detailContainer}>
                   <Text style={styles.text}>
-                    {' '}
+                    {'   '}
                     Le Bon Funk, 29 Club St, Singapore 069414
                   </Text>
-                  <Text style={styles.text}>4 Mar 2021, Tue, 6-8pm</Text>
+                  <Text style={styles.text}>  {'  '}4 Mar 2021, Tue, 6-8pm</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -301,12 +321,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#dfe6e9',
+    justifyContent:'center'
   },
   subcontain: {
     padding: 10,
   },
   card: {
-    borderRadius: 15,
+    borderRadius: 20,
     backgroundColor: '#f5f6fa',
     marginBottom: 20,
   },
@@ -355,7 +376,8 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
     backgroundColor: '#000',
-    opacity: 0.8,
+    opacity: 0.6,
+    
   },
   overlay: {
     display: 'flex',
@@ -365,7 +387,7 @@ const styles = StyleSheet.create({
   },
   headerImageWrapper: {
     width: '100%',
-    height: 150,
+    height: 200,
     borderBottomRightRadius: 50,
     borderBottomLeftRadius: 50,
     marginBottom: 80,
@@ -394,13 +416,15 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 160,
     position: 'absolute',
-    left: '0%',
-    top: 60,
+    left: '-2%',
+    top: 80,
     // bottom:0,
   },
   logoimg: {
-    maxWidth: '100%',
-    maxHeight: '100%',
+   height:80,
+   width:80, 
+   marginLeft:30,
+   marginTop:25
   },
   logoheader: {
     width: '100%',

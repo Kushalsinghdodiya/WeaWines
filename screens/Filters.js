@@ -30,7 +30,7 @@ export default function Filters() {
                 title="Burgundy"
                 theme={{colors: {primary: '#800101'}}}>
                 <List.Item
-                  style={{padding: 0, margin: 0}}
+                   style={{padding: -5, margin: -5}}
                   left={props => (
                     <CheckBox value={isSelected} onValueChange={setSelection} />
                   )}
@@ -38,25 +38,53 @@ export default function Filters() {
                 />
 
                 <List.Item
-                  style={{padding: 0, margin: 0}}
+                  style={{padding: -5, margin: -5}}
                   left={props => (
                     <CheckBox value={isSelected} onValueChange={setSelection} />
                   )}
                   title="Bachelet-Monnot"
                 />
                 <List.Item
-                  style={{padding: 0, margin: 0}}
+                   style={{padding: -5, margin: -5}}
                   left={props => (
                     <CheckBox value={isSelected} onValueChange={setSelection} />
                   )}
                   title="Ballot-Millot"
                 />
                 <List.Item
-                  style={{padding: 0, margin: 0}}
+                  style={{padding: -5, margin: -5}}
                   left={props => (
                     <CheckBox value={isSelected} onValueChange={setSelection} />
                   )}
                   title="Bernard Moreau"
+                />
+                 <List.Item
+                  style={{padding: -5, margin: -5}}
+                  left={props => (
+                    <CheckBox value={isSelected} onValueChange={setSelection} />
+                  )}
+                  title="Berthaut-Gerbet"
+                />
+                 <List.Item
+                  style={{padding: -5, margin: -5}}
+                  left={props => (
+                    <CheckBox value={isSelected} onValueChange={setSelection} />
+                  )}
+                  title="Caroline Morey"
+                />
+                 <List.Item
+                  style={{padding: -5, margin: -5}}
+                  left={props => (
+                    <CheckBox value={isSelected} onValueChange={setSelection} />
+                  )}
+                  title="David Duband"
+                />
+                 <List.Item
+                  style={{padding: -5, margin: -5}}
+                  left={props => (
+                    <CheckBox value={isSelected} onValueChange={setSelection} />
+                  )}
+                  title="Duroché"
                 />
               </List.Accordion>
 
@@ -161,11 +189,105 @@ export default function Filters() {
                   title="Bernard Moreau"
                 />
               </List.Accordion>
+              <List.Accordion
+                title="Rhane"
+                theme={{colors: {primary: '#800101'}}}>
+                <List.Item
+                  style={{padding: 0, margin: 0}}
+                  left={props => (
+                    <CheckBox value={isSelected} onValueChange={setSelection} />
+                  )}
+                  title="Antoine Jobard"
+                />
+
+                <List.Item
+                  style={{padding: 0, margin: 0}}
+                  left={props => (
+                    <CheckBox value={isSelected} onValueChange={setSelection} />
+                  )}
+                  title="Bachelet-Monnot"
+                />
+                <List.Item
+                  style={{padding: 0, margin: 0}}
+                  left={props => (
+                    <CheckBox value={isSelected} onValueChange={setSelection} />
+                  )}
+                  title="Ballot-Millot"
+                />
+                <List.Item
+                  style={{padding: 0, margin: 0}}
+                  left={props => (
+                    <CheckBox value={isSelected} onValueChange={setSelection} />
+                  )}
+                  title="Bernard Moreau"
+                />
+              </List.Accordion>
+              <List.Accordion
+                title="The New Spain"
+                theme={{colors: {primary: '#800101'}}}>
+                <List.Item
+                  style={{padding: 0, margin: 0}}
+                  left={props => (
+                    <CheckBox value={isSelected} onValueChange={setSelection} />
+                  )}
+                  title="Antoine Jobard"
+                />
+
+                <List.Item
+                  style={{padding: 0, margin: 0}}
+                  left={props => (
+                    <CheckBox value={isSelected} onValueChange={setSelection} />
+                  )}
+                  title="Bachelet-Monnot"
+                />
+                <List.Item
+                  style={{padding: 0, margin: 0}}
+                  left={props => (
+                    <CheckBox value={isSelected} onValueChange={setSelection} />
+                  )}
+                  title="Ballot-Millot"
+                />
+                <List.Item
+                  style={{padding: 0, margin: 0}}
+                  left={props => (
+                    <CheckBox value={isSelected} onValueChange={setSelection} />
+                  )}
+                  title="Bernard Moreau"
+                />
+              </List.Accordion>
             </List.Section>
           </View>
           <View style={styles.row}>
             <View style={styles.col}>
-              <Text style={{fontSize: 18}}>Vintage</Text>
+              <Text style={{fontSize: 16, marginLeft:20}}>Vintage</Text>
+
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={{flex: 1}}>
+                  <CheckBox value={isSelected} onValueChange={setSelection} />
+                </View>
+                <View style={{flex: 4}}>
+                  <Text style={{marginLeft: 10, fontSize: 16}}>2015</Text>
+                </View>
+                
+              </View>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={{flex: 1}}>
+                  <CheckBox value={isSelected} onValueChange={setSelection} />
+                </View>
+                <View style={{flex: 4}}>
+                  <Text style={{marginLeft: 10, fontSize: 16}}>2016</Text>
+                </View>
+                
+              </View>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={{flex: 1}}>
+                  <CheckBox value={isSelected} onValueChange={setSelection} />
+                </View>
+                <View style={{flex: 4}}>
+                  <Text style={{marginLeft: 10, fontSize: 16}}>2017</Text>
+                </View>
+                
+              </View>
 
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <View style={{flex: 1}}>
@@ -184,19 +306,10 @@ export default function Filters() {
                   <Text style={{marginLeft: 10, fontSize: 16}}>2019</Text>
                 </View>
               </View>
-
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <View style={{flex: 1}}>
-                  <CheckBox value={isSelected} onValueChange={setSelection} />
-                </View>
-                <View style={{flex: 4}}>
-                  <Text style={{marginLeft: 10, fontSize: 16}}>2018</Text>
-                </View>
-              </View>
             </View>
 
             <View style={styles.col}>
-              <Text style={{fontSize: 18}}>Sort by</Text>
+              <Text style={{fontSize: 16}}>Sort by</Text>
 
               <View
                 style={{
@@ -270,10 +383,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     padding: 10,
+    marginTop:-10
   },
   col: {
     width: '50%',
-    height: 160,
+    height: 250,
     display: 'flex',
 
     padding: 10,

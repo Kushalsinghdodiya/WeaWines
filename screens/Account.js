@@ -7,12 +7,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icons from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Avatar} from 'react-native-paper';
 
 import {Input, Button} from 'react-native-elements';
 
-export default function Account() {
+export default function Account({route, navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -28,7 +29,7 @@ export default function Account() {
         <View style={styles.col2}>
           <Text style={{fontSize: 20}}>John Doe</Text>
           <TouchableOpacity>
-            <Text style={{fontSize: 15, color: '#800101'}}>Edit</Text>
+            <Text style={{fontSize: 15, color: '#800101'}}>Edit Profile</Text>
           </TouchableOpacity>
 
           <Button
@@ -43,7 +44,7 @@ export default function Account() {
         <TouchableOpacity>
           <View style={{display: 'flex', flexDirection: 'row', padding: 5}}>
             <Text style={styles.options}>My Cart</Text>
-            <Icon name="eye" size={25} color="black" />
+            <Icon name="greater-than" size={25} color="black" />
           </View>
         </TouchableOpacity>
         <View
@@ -58,7 +59,7 @@ export default function Account() {
         <TouchableOpacity>
           <View style={{display: 'flex', flexDirection: 'row', padding: 5}}>
             <Text style={styles.options}>Manage Address</Text>
-            <Icon name="eye" size={25} color="black" />
+            <Icon name="greater-than" size={25} color="black" />
           </View>
         </TouchableOpacity>
         <View
@@ -73,7 +74,7 @@ export default function Account() {
         <TouchableOpacity>
           <View style={{display: 'flex', flexDirection: 'row', padding: 5}}>
             <Text style={styles.options}>My Order</Text>
-            <Icon name="eye" size={25} color="black" />
+            <Icon name="greater-than" size={25} color="black" />
           </View>
         </TouchableOpacity>
         <View
@@ -88,7 +89,7 @@ export default function Account() {
         <TouchableOpacity>
           <View style={{display: 'flex', flexDirection: 'row', padding: 5}}>
             <Text style={styles.options}>My Rewards Points</Text>
-            <Icon name="eye" size={25} color="black" />
+            <Icon name="greater-than" size={25} color="black" />
           </View>
         </TouchableOpacity>
         <View
@@ -101,7 +102,7 @@ export default function Account() {
         />
 
         <View style={{display: 'flex', alignSelf: 'center'}}>
-          <Button buttonStyle={styles.logout} title="Logout" />
+          <Button onPress={() => navigation.navigate('SignIn')} buttonStyle={styles.logout} title="LOGOUT" />
         </View>
       </View>
     </View>
@@ -121,11 +122,13 @@ const styles = StyleSheet.create({
   col1: {
     width: '40%',
     paddingTop: 15,
+    marginTop:20
   },
   col2: {
     width: '60%',
     justifyContent: 'center',
     paddingTop: 20,
+    marginTop:20
   },
 
   loginBtn: {
@@ -141,6 +144,7 @@ const styles = StyleSheet.create({
   },
   subcontain: {
     padding: 10,
+    marginTop:20
   },
   options: {
     fontSize: 16,
@@ -155,8 +159,9 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 80,
+    marginTop: 100,
     marginBottom: 10,
     width: '100%',
+    fontSize:14
   },
 });
