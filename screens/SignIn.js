@@ -40,7 +40,7 @@ export default function SignIn({route, navigation}) {
 
         <Button
           buttonStyle={styles.loginBtn}
-          onPress={() => navigation.navigate('bottomNavigator')}
+          onPress={() => navigation.navigate('Checkout')}
           title="Login"
         />
 

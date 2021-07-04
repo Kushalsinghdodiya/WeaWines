@@ -14,15 +14,19 @@ import CardSilder from 'react-native-cards-slider';
 import WineriesDetail from './WineriesDetail';
 import ImageOverlay from 'react-native-image-overlay';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { widthPercentageToDP } from 'react-native-responsive-screen';
+import Icons from 'react-native-vector-icons/Fontisto';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 
 export default function Home() {
   return (
     <View style={styles.container}>
       <SafeAreaView>
-      <StatusBar barStyle="dark-content" backgroundColor="#424242" />
-        <ScrollView  
-        contentContainerStyle={{justifyContent:'center', width:widthPercentageToDP(100)}} >
+        <StatusBar barStyle="dark-content" backgroundColor="#424242" />
+        <ScrollView
+          contentContainerStyle={{
+            justifyContent: 'center',
+            width: widthPercentageToDP(100),
+          }}>
           <View style={styles.headerImageWrapper}>
             <ImageBackground
               style={styles.theImageInside}
@@ -48,13 +52,14 @@ export default function Home() {
                     </View>
                   </View>
 
-                  <View style={{
-                     width: '50%',
-                     height: 150,
-                     display: 'flex',
-                     justifyContent: 'center',
-                     marginLeft:-13
-                  }}>
+                  <View
+                    style={{
+                      width: '50%',
+                      height: 150,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginLeft: -13,
+                    }}>
                     <Text style={styles.heading}>Champagne Savart New</Text>
                     <Text style={styles.heading}>Release Allocation</Text>
 
@@ -70,17 +75,22 @@ export default function Home() {
                       </Text>
                       <Text style={{fontSize: 14, color: '#f5f6fa'}}>
                         {'   '}
-                        <Icon name="calendar-o" size={18} color="black" style={{marginLeft:5}} />
+                        <Icon
+                          name="calendar-o"
+                          size={18}
+                          color="black"
+                          style={{marginLeft: 5}}
+                        />
                         19 Jan 2021
                       </Text>
                     </View>
 
-                    <TouchableOpacity style={{flexDirection:'row'}}>
+                    <TouchableOpacity style={{flexDirection: 'row'}}>
                       <Text style={{fontSize: 15, color: '#f5f6fa'}}>
                         EXPLORE{'     '}
                         <Icon
                           name="long-arrow-right"
-                          style={{marginLeft:20, marginTop:-5}}
+                          style={{marginLeft: 20, marginTop: -5}}
                           size={25}
                           color="black"
                         />
@@ -198,7 +208,7 @@ export default function Home() {
             </View>
           </CardSilder>
 
-          <View style={{padding: 10,marginTop:-25}}>
+          <View style={{padding: 10, marginTop: -25}}>
             <Text style={{fontSize: 20, margin: 10}}>
               WEA from Home Subscription
             </Text>
@@ -207,67 +217,91 @@ export default function Home() {
           <View style={styles.row}>
             <View style={styles.col}>
               <TouchableOpacity>
-                <View style={styles.imageWrapper}>
-                  <ImageBackground
-                    style={styles.theImage}
-                    source={require('../navigation/assets/images/wine.png')}>
-                    <View style={styles.overlay}>
-                      <Text
-                        style={{
-                          fontSize: 18,
-                          color: '#f3f3f3',
-                          fontWeight: 'bold',
-                        }}>
-                        STARTER TIER
-                      </Text>
-                    </View>
-                  </ImageBackground>
-                  
-                </View>
+                <ImageOverlay
+                  style={{alignSelf: 'center'}}
+                  containerStyle={{
+                    width: 155,
+                    borderRadius: 10,
+                  }}
+                  source={require('../navigation/assets/images/wine.png')}
+                  height={1.7 * 100}
+                  overlayAlpha={0.6}
+                  title="  STARTER TIER"
+                  contentPosition="center"
+                  titleStyle={{
+                    fontSize: 18,
+                    textTransform: 'uppercase',
+                    margin: 'auto',
+                  }}
+                />
               </TouchableOpacity>
             </View>
 
             <View style={styles.col}>
               <TouchableOpacity>
-                <View style={styles.imageWrapper}>
-                  <ImageBackground
-                    style={styles.theImage}
-                    source={require('../navigation/assets/images/wines2.png')}>
-                    <View style={styles.overlay}>
-                      <Text
-                        style={{
-                          fontSize: 18,
-                          color: '#f3f3f3',
-                          fontWeight: 'bold',
-                        }}>
-                        ADVANCED TIER
-                      </Text>
-                    </View>
-                  </ImageBackground>
-                </View>
+                <ImageOverlay
+                  style={{alignSelf: 'center'}}
+                  containerStyle={{
+                    width: 155,
+                    borderRadius: 10,
+                  }}
+                  source={require('../navigation/assets/images/wines2.png')}
+                  height={1.7 * 100}
+                  overlayAlpha={0.6}
+                  title=" ADVANCED TIER"
+                  contentPosition="center"
+                  titleStyle={{
+                    fontSize: 18,
+                    textTransform: 'uppercase',
+                    margin: 'auto',
+                  }}
+                />
               </TouchableOpacity>
             </View>
           </View>
 
-          <View style={{padding: 10}}>
-            <Text style={{fontSize: 20, margin: 10}}>Events </Text>
+          <View
+            style={{
+              padding: 10,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <View style={{width: '50%'}}>
+              <Text style={{fontSize: 20, margin: 10}}>Events </Text>
+            </View>
+
+            <View style={{width: '50%'}}>
+              <TouchableOpacity>
+                <Text style={{textAlign: 'right', marginRight: 30}}>
+                  <Icons name="arrow-right-l" size={20} color="black" />
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
           <CardSilder>
             <TouchableOpacity>
               <View style={styles.card}>
-              <ImageOverlay
-          style={{alignSelf: 'center'}}
-          source={require('../navigation/assets/images/cardiimg.png')}
-          height={2.2 * 100}
-          title="Lorem ipsum dolor sit amet con..."
-          contentPosition="bottom"
-          titleStyle={{fontSize: 16, textTransform: 'uppercase', marginLeft:-10, }}
-        />
-                {/* <Image
-                  style={styles.image}
+                <ImageOverlay
+                  style={{alignSelf: 'center'}}
+                  containerStyle={{
+                    width: '100%',
+                    borderTopRightRadius: 15,
+                    borderTopLeftRadius: 15,
+                  }}
                   source={require('../navigation/assets/images/cardiimg.png')}
-                /> */}
+                  height={1.8 * 100}
+                  overlayAlpha={0.6}
+                  title="Lorem ipsum dolor sit amet con..."
+                  contentPosition="bottom"
+                  titleStyle={{
+                    fontSize: 16,
+                    textTransform: 'uppercase',
+                    marginLeft: 0,
+                  }}
+                />
+
                 <View style={styles.detailContainer}>
                   <Text style={styles.text}>
                     {' '}
@@ -280,10 +314,25 @@ export default function Home() {
 
             <TouchableOpacity>
               <View style={styles.card}>
-                <Image
-                  style={styles.image}
+                <ImageOverlay
+                  style={{alignSelf: 'center'}}
+                  containerStyle={{
+                    width: '100%',
+                    borderTopRightRadius: 15,
+                    borderTopLeftRadius: 15,
+                  }}
                   source={require('../navigation/assets/images/cardiimg.png')}
+                  height={1.8 * 100}
+                  overlayAlpha={0.6}
+                  title="Lorem ipsum dolor sit amet con..."
+                  contentPosition="bottom"
+                  titleStyle={{
+                    fontSize: 16,
+                    textTransform: 'uppercase',
+                    marginLeft: 0,
+                  }}
                 />
+
                 <View style={styles.detailContainer}>
                   <Text style={styles.text}>
                     {' '}
@@ -296,16 +345,31 @@ export default function Home() {
 
             <TouchableOpacity>
               <View style={styles.card}>
-                <Image
-                  style={styles.image}
+                <ImageOverlay
+                  style={{alignSelf: 'center'}}
+                  containerStyle={{
+                    width: '100%',
+                    borderTopRightRadius: 15,
+                    borderTopLeftRadius: 15,
+                  }}
                   source={require('../navigation/assets/images/cardiimg.png')}
+                  height={1.8 * 100}
+                  overlayAlpha={0.6}
+                  title="Lorem ipsum dolor sit amet con..."
+                  contentPosition="bottom"
+                  titleStyle={{
+                    fontSize: 16,
+                    textTransform: 'uppercase',
+                    marginLeft: 0,
+                  }}
                 />
+
                 <View style={styles.detailContainer}>
                   <Text style={styles.text}>
-                    {'   '}
+                    {' '}
                     Le Bon Funk, 29 Club St, Singapore 069414
                   </Text>
-                  <Text style={styles.text}>  {'  '}4 Mar 2021, Tue, 6-8pm</Text>
+                  <Text style={styles.text}>4 Mar 2021, Tue, 6-8pm</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -321,7 +385,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#dfe6e9',
-    justifyContent:'center'
+    justifyContent: 'center',
   },
   subcontain: {
     padding: 10,
@@ -377,7 +441,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     backgroundColor: '#000',
     opacity: 0.6,
-    
   },
   overlay: {
     display: 'flex',
@@ -421,10 +484,10 @@ const styles = StyleSheet.create({
     // bottom:0,
   },
   logoimg: {
-   height:80,
-   width:80, 
-   marginLeft:30,
-   marginTop:25
+    height: 80,
+    width: 80,
+    marginLeft: 30,
+    marginTop: 25,
   },
   logoheader: {
     width: '100%',

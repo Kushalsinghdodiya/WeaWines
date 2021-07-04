@@ -29,7 +29,9 @@ export default function PriceList({route,navigation}) {
           alignSelf: 'center',
           marginTop: -10,
           backgroundColor: '#800101',
-        }}>
+        }}
+        
+        >
         <View
           style={{
             justifyContent: 'flex-start',
