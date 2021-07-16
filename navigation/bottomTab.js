@@ -51,7 +51,7 @@ class bottomNavigator extends React.Component {
             component={Home}
             options={{
               tabBarLabel: '',
-              tabBarButton: () => <HomeBtn />,
+              tabBarIcon: () => <HomeBtn />,
               // tabBarIcon: ({ color, size }) => (
               //     <Image source={require('../App/assets/centerLogo.png', )} style={{height:40,width:40, marginTop:15}}/>
               // ),

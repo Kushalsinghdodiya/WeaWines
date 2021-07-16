@@ -15,13 +15,55 @@ import WineriesDetail from './WineriesDetail';
 import ImageOverlay from 'react-native-image-overlay';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icons from 'react-native-vector-icons/Fontisto';
-import {widthPercentageToDP} from 'react-native-responsive-screen';
+import IconRight from 'react-native-vector-icons/AntDesign';
+import {widthPercentageToDP,heightPercentageToDP} from 'react-native-responsive-screen';
 
 export default function Home() {
   return (
     <View style={styles.container}>
       <SafeAreaView>
-        <StatusBar barStyle="dark-content" backgroundColor="#424242" />
+        <StatusBar barStyle="light-content" backgroundColor="#192125" />
+        <View
+        style={{
+          flexDirection: 'row',
+          width: widthPercentageToDP(100),
+          height: heightPercentageToDP(7),
+          alignSelf: 'center',
+          marginTop: -10,
+          backgroundColor: '#192125',
+          
+        }}>
+        <View
+          style={{
+            justifyContent: 'flex-start',
+            width: widthPercentageToDP(80),
+          }}>
+          <Text
+            style={{
+             
+              marginLeft: 25,
+              color: 'white',
+              textAlign: 'left',
+              marginTop: 22,
+              alignSelf: 'flex-start',
+              fontSize: 18,
+            }}>
+           Hi, John Doe
+          </Text>
+        </View>
+        <View
+          style={{
+            justifyContent: 'center',
+            marginTop: 22,
+            flexDirection: 'row',
+          }}>
+          <Image source={require('../App/assets/search_black_24dp.png')} />
+          <Image
+            style={{marginLeft: 10}}
+            source={require('../App/assets/shopping_bag_black_24dp.png')}
+          />
+        </View>
+      </View> 
         <ScrollView
           contentContainerStyle={{
             justifyContent: 'center',
@@ -68,31 +110,32 @@ export default function Home() {
                         display: 'flex',
                         flexDirection: 'row',
                         justifyContent: 'space-between',
+                        marginTop:10
                       }}>
-                      <Text style={{fontSize: 15, color: '#f5f6fa'}}>
+                      <Text style={{fontSize: 12, color: '#f5f6fa'}}>
                         {'  '}
-                        <Icon name="user" size={18} color="black" /> Admin
+                        <Icon name="user" size={14} color="white" /> Admin
                       </Text>
-                      <Text style={{fontSize: 14, color: '#f5f6fa'}}>
+                      <Text style={{fontSize: 12, color: '#f5f6fa'}}>
                         {'   '}
                         <Icon
                           name="calendar-o"
-                          size={18}
-                          color="black"
+                          size={14}
+                          color="white"
                           style={{marginLeft: 5}}
                         />
-                        19 Jan 2021
+                       {" "+" 19 Jan 2021"}
                       </Text>
                     </View>
 
-                    <TouchableOpacity style={{flexDirection: 'row'}}>
-                      <Text style={{fontSize: 15, color: '#f5f6fa'}}>
-                        EXPLORE{'     '}
-                        <Icon
-                          name="long-arrow-right"
-                          style={{marginLeft: 20, marginTop: -5}}
-                          size={25}
-                          color="black"
+                    <TouchableOpacity style={{flexDirection: 'row',marginTop:10}}>
+                      <Text style={{fontSize: 11, color: '#f5f6fa'}}>
+                        EXPLORE{'  '}
+                        <IconRight
+                          name="arrowright"
+                          style={{paddingTop: 12}}
+                          size={14}
+                          color="white"
                         />
                       </Text>
                     </TouchableOpacity>
@@ -109,7 +152,7 @@ export default function Home() {
                 }}
                 style={styles.theheadercardImg}
                 source={require('../navigation/assets/images/cardbackground.jpg')}>
-                <View style={styles.row}>
+             <View style={styles.row}>
                   <View style={styles.col2}>
                     <View style={styles.logoheader}>
                       <Image
@@ -119,33 +162,48 @@ export default function Home() {
                     </View>
                   </View>
 
-                  <View style={styles.col2}>
+                  <View
+                    style={{
+                      width: '50%',
+                      height: 150,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginLeft: -13,
+                    }}>
                     <Text style={styles.heading}>Champagne Savart New</Text>
                     <Text style={styles.heading}>Release Allocation</Text>
+
                     <View
                       style={{
                         display: 'flex',
                         flexDirection: 'row',
                         justifyContent: 'space-between',
+                        marginTop:10
                       }}>
-                      <Text style={{fontSize: 15, color: '#f5f6fa'}}>
-                        {' '}
-                        <Icon name="user" size={18} color="black" /> Admin
+                      <Text style={{fontSize: 12, color: '#f5f6fa'}}>
+                        {'  '}
+                        <Icon name="user" size={14} color="white" /> Admin
                       </Text>
-                      <Text style={{fontSize: 14, color: '#f5f6fa'}}>
-                        {' '}
-                        <Icon name="calendar-o" size={18} color="black" />
-                        19 Jan 2021
+                      <Text style={{fontSize: 12, color: '#f5f6fa'}}>
+                        {'   '}
+                        <Icon
+                          name="calendar-o"
+                          size={14}
+                          color="white"
+                          style={{marginLeft: 5}}
+                        />
+                       {" "+" 19 Jan 2021"}
                       </Text>
                     </View>
-                    <TouchableOpacity>
-                      <Text style={{fontSize: 15, color: '#f5f6fa'}}>
-                        EXPLORE{' '}
-                        <Icon
-                          name="long-arrow-right"
-                          style={{margin: 14}}
-                          size={25}
-                          color="black"
+
+                    <TouchableOpacity style={{flexDirection: 'row',marginTop:10}}>
+                      <Text style={{fontSize: 11, color: '#f5f6fa'}}>
+                        EXPLORE{'  '}
+                        <IconRight
+                          name="arrowright"
+                          style={{paddingTop: 12}}
+                          size={14}
+                          color="white"
                         />
                       </Text>
                     </TouchableOpacity>
@@ -209,7 +267,7 @@ export default function Home() {
           </CardSilder>
 
           <View style={{padding: 10, marginTop: -25}}>
-            <Text style={{fontSize: 20, margin: 10}}>
+            <Text style={{fontSize: 16, margin: 10}}>
               WEA from Home Subscription
             </Text>
           </View>
@@ -220,7 +278,7 @@ export default function Home() {
                 <ImageOverlay
                   style={{alignSelf: 'center'}}
                   containerStyle={{
-                    width: 155,
+                    width: 165,
                     borderRadius: 10,
                   }}
                   source={require('../navigation/assets/images/wine.png')}
@@ -242,7 +300,7 @@ export default function Home() {
                 <ImageOverlay
                   style={{alignSelf: 'center'}}
                   containerStyle={{
-                    width: 155,
+                    width: 165,
                     borderRadius: 10,
                   }}
                   source={require('../navigation/assets/images/wines2.png')}
@@ -266,15 +324,16 @@ export default function Home() {
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
+              marginTop:20
             }}>
             <View style={{width: '50%'}}>
-              <Text style={{fontSize: 20, margin: 10}}>Events </Text>
+              <Text style={{fontSize: 16, margin: 10}}>Events </Text>
             </View>
 
             <View style={{width: '50%'}}>
               <TouchableOpacity>
                 <Text style={{textAlign: 'right', marginRight: 30}}>
-                  <Icons name="arrow-right-l" size={20} color="black" />
+                  <IconRight name="arrowright" size={20} color="black" />
                 </Text>
               </TouchableOpacity>
             </View>
@@ -289,6 +348,7 @@ export default function Home() {
                     width: '100%',
                     borderTopRightRadius: 15,
                     borderTopLeftRadius: 15,
+                    marginLeft:'-2%'
                   }}
                   source={require('../navigation/assets/images/cardiimg.png')}
                   height={1.8 * 100}
@@ -383,9 +443,9 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    
     backgroundColor: '#dfe6e9',
-    justifyContent: 'center',
+   
   },
   subcontain: {
     padding: 10,
@@ -394,6 +454,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#f5f6fa',
     marginBottom: 20,
+    
   },
   image: {
     width: '100%',
@@ -412,14 +473,13 @@ const styles = StyleSheet.create({
   row: {
     display: 'flex',
     flexDirection: 'row',
-    padding: 10,
+    padding: 5,
   },
   col: {
     width: '50%',
     height: 160,
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+   
     padding: 10,
   },
   imagerow: {
@@ -476,10 +536,10 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   headcard: {
-    width: '90%',
+    width: '70%',
     height: 160,
     position: 'absolute',
-    left: '-2%',
+    left: '-4%',
     top: 80,
     // bottom:0,
   },

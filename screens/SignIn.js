@@ -21,15 +21,15 @@ export default function SignIn({route, navigation}) {
       <View style={styles.sub_container}>
         <Input
           placeholder="Email"
-          style={{fontSize:15, paddingBottom:-5}}
-          rightIcon={<Icons name="email" size={20} style={{paddingBottom:-5}} color="black" />}
+          style={{fontSize:15, marginBottom:-20}}
+          rightIcon={<Icons name="email" size={20} style={{marginBottom:-20}} color="black" />}
         />
 
         <Input
           placeholder="Password"
           secureTextEntry={true}
-          style={{fontSize:15, paddingBottom:-5}}
-          rightIcon={<Icon name="eye" size={20} style={{paddingBottom:-5}}  color="black" />}
+          style={{fontSize:15, marginBottom:-20}}
+          rightIcon={<Icon name="eye" size={20} style={{marginBottom:-20}}  color="black" />}
         />
 
         <View style={styles.forgetdiv}>
@@ -40,7 +40,7 @@ export default function SignIn({route, navigation}) {
 
         <Button
           buttonStyle={styles.loginBtn}
-          onPress={() => navigation.navigate('Checkout')}
+          onPress={() => navigation.navigate('bottomNavigator')}
           title="Login"
         />
 
@@ -102,7 +102,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   sub_container: {
-    padding: 10,
+   paddingLeft:10,
+   paddingRight:10
   },
 
   heading: {

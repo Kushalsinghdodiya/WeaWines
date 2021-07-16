@@ -20,7 +20,7 @@ import ImageOverlay from 'react-native-image-overlay';
 export default function Updates() {
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar barStyle="dark-content" backgroundColor="#800101" />
+      <StatusBar barStyle="light-content" backgroundColor="#800101" />
       <View
         style={{
           flexDirection: 'row',
@@ -68,17 +68,20 @@ export default function Updates() {
           </CardItem>
           <CardItem>
             <Text style={{fontSize: 14, marginTop: -10}}>
-              x2 2018 Overnoy Arbois Pupillin Rouge Poulsard $699/750ml
+              x2 2018 Overnoy Arbois Pupillin Rouge Poulsard
+              <Text style={{fontSize: 14, marginTop: -10,color:'#800101'}}>{" "}$699/750ml</Text>
             </Text>
           </CardItem>
           <CardItem>
             <Text style={{fontSize: 14, marginTop: -10}}>
-              x2 2015 Overnoy Arbois Pupillin Rouge Poulsard $699/750ml
+              x2 2015 Overnoy Arbois Pupillin Rouge Poulsard 
+              <Text style={{fontSize: 14, marginTop: -10,color:'#800101'}}>{" "}$699/750ml</Text>
             </Text>
           </CardItem>
           <CardItem>
             <Text style={{fontSize: 14, marginTop: -10}}>
-              x2 2015 Overnoy Arbois Pupillin Blanc Chardonnay $699/750ml
+              x2 2015 Overnoy Arbois Pupillin Blanc Chardonnay 
+              <Text style={{fontSize: 14, marginTop: -10,color:'#800101'}}>{" "}$699/750ml</Text>
             </Text>
           </CardItem>
           <CardItem style={{flexDirection: 'row', marginBottom: 10}}>
@@ -115,7 +118,14 @@ export default function Updates() {
         <Card style={{margin: 15, marginTop: 15, borderRadius: 4}}>
           <CardItem>
             <Text style={{fontSize: 15, marginTop: 10}}>
-              2017 Domaine Baron Thenard Grands Echezeaux Grand Cru $189/750ml
+              2017 Domaine Baron Thenard Grands Echezeaux Grand Cru 
+              <Text style={{fontSize: 14, marginTop: -10,color:'#800101'}}>{" "}$189/750ml</Text>
+            
+            </Text>
+          </CardItem>
+          <CardItem>
+            <Text style={{fontSize: 15, marginTop: -30}}>
+             
               (Multiples of 3 only)
             </Text>
           </CardItem>
@@ -151,7 +161,7 @@ export default function Updates() {
             </View>
           </CardItem>
         </Card>
-        <View style={{borderWidth:1,marginTop:25, borderColor:'#807a81', }}>
+        <View style={{borderWidth:.5,marginTop:25, borderColor:'#807a81', }}>
 
         </View>
         <View style={{justifyContent:'center', marginTop:-18}}>
@@ -186,7 +196,22 @@ May 18, Wed
           <CardItem>
             <Text style={{fontSize: 14, marginTop: -10}}>
             Domaine de L'Arlot
-x6 1999 Nuits Saint Georges 1er Clos des Forets Saint Georges (monopole) $338/750ml
+x6 1999 Nuits Saint Georges 1er Clos des Forets 
+            </Text>
+            
+          </CardItem>
+          <CardItem>
+            
+            <Text style={{fontSize: 14, marginTop: -30}}>
+       Saint Georges (monopole)
+       <Text style={{fontSize: 14, marginTop: -10,color:'#800101'}}>{" "}$338/750ml</Text>
+
+            </Text>
+          </CardItem>
+          <CardItem>
+            
+            <Text style={{fontSize: 14, marginTop: -35}}>
+       
 (Multiples of 2s only)
             </Text>
           </CardItem>

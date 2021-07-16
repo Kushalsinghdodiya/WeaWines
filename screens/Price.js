@@ -8,7 +8,8 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Feather';
+import Icons from 'react-native-vector-icons/Feather';
 import {Input, Button} from 'react-native-elements';
 import {Card, CardItem, Container, Header} from 'native-base';
 import {
@@ -20,7 +21,7 @@ import ImageOverlay from 'react-native-image-overlay';
 export default function PriceList({route,navigation}) {
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar barStyle="dark-content" backgroundColor="#800101" />
+      <StatusBar barStyle="light-content" backgroundColor="#800101" />
       <View
         style={{
           flexDirection: 'row',
@@ -29,9 +30,7 @@ export default function PriceList({route,navigation}) {
           alignSelf: 'center',
           marginTop: -10,
           backgroundColor: '#800101',
-        }}
-        
-        >
+        }}>
         <View
           style={{
             justifyContent: 'flex-start',
@@ -95,10 +94,7 @@ export default function PriceList({route,navigation}) {
           }}>
          <Text style={{color:'#a29c9c',fontSize:13, paddingTop:12,paddingLeft:20}}>Search...</Text>
           <View style={{marginLeft: widthPercentageToDP(22),paddingTop:10}}>
-          <Image
-            style={{ }}
-            source={require('../App/assets/tune_black_24dp.png')}
-          />
+         <Icons name="search" size={20} color="black" style={{marginBottom:-15}}/>
           </View>
         </View>
       </View>
@@ -108,14 +104,14 @@ export default function PriceList({route,navigation}) {
           <CardItem>
             <Text style={{fontSize: 15, marginTop: 10}}>Vintage:2018</Text>
           </CardItem>
-          <CardItem style={{marginBottom:10}}>
+          <CardItem style={{marginBottom:10,flexDirection:'row',justifyContent:'space-between'}}>
             <Text style={{fontSize: 14,  flexDirection:'row',marginTop:-20}}>
             Meursault 1er Blagny
             </Text>
             <View
               style={{
                 alignSelf: 'flex-end',
-                marginLeft: widthPercentageToDP(40),
+               
                 marginTop:-10
               
               }}>
@@ -147,8 +143,15 @@ export default function PriceList({route,navigation}) {
         justifyContent:'center',
             flexDirection:'row' }}>
           
-              
-          <Text style={{color:'#800101'}}>Add to Cart</Text>
+          <Icon
+                          name="shopping-bag"
+                        style={{marginLeft:5}}
+                          size={14}
+                          color="#800101"
+                        />
+         <TouchableOpacity onPress={() => navigation.navigate('Checkout')}>
+          <Text style={{color:'#800101',marginLeft:5}}>Add to Cart</Text>
+          </TouchableOpacity>
        
         
           </CardItem>
@@ -157,14 +160,14 @@ export default function PriceList({route,navigation}) {
           <CardItem>
             <Text style={{fontSize: 15, marginTop: 10}}>Vintage:2018</Text>
           </CardItem>
-          <CardItem style={{marginBottom:10}}>
+          <CardItem style={{marginBottom:10,flexDirection:'row',justifyContent:'space-between'}}>
             <Text style={{fontSize: 14,  flexDirection:'row',marginTop:-20}}>
             Meursault 1er Blagny
             </Text>
             <View
               style={{
                 alignSelf: 'flex-end',
-                marginLeft: widthPercentageToDP(40),
+               
                 marginTop:-10
               
               }}>
@@ -196,8 +199,13 @@ export default function PriceList({route,navigation}) {
         justifyContent:'center',
             flexDirection:'row' }}>
           
-              
-          <Text style={{color:'#800101'}}>Add to Cart</Text>
+          <Icon
+                          name="shopping-bag"
+                        style={{marginLeft:5}}
+                          size={14}
+                          color="#800101"
+                        />
+          <Text style={{color:'#800101',marginLeft:5}}>Add to Cart</Text>
        
         
           </CardItem>
@@ -206,14 +214,14 @@ export default function PriceList({route,navigation}) {
           <CardItem>
             <Text style={{fontSize: 15, marginTop: 10}}>Vintage:2018</Text>
           </CardItem>
-          <CardItem style={{marginBottom:10}}>
+          <CardItem style={{marginBottom:10,flexDirection:'row',justifyContent:'space-between'}}>
             <Text style={{fontSize: 14,  flexDirection:'row',marginTop:-20}}>
             Meursault 1er Blagny
             </Text>
             <View
               style={{
                 alignSelf: 'flex-end',
-                marginLeft: widthPercentageToDP(40),
+               
                 marginTop:-10
               
               }}>
@@ -245,8 +253,13 @@ export default function PriceList({route,navigation}) {
         justifyContent:'center',
             flexDirection:'row' }}>
           
-              
-          <Text style={{color:'#800101'}}>Add to Cart</Text>
+          <Icon
+                          name="shopping-bag"
+                        style={{marginLeft:5}}
+                          size={14}
+                          color="#800101"
+                        />
+          <Text style={{color:'#800101',marginLeft:5}}>Add to Cart</Text>
        
         
           </CardItem>
@@ -255,14 +268,14 @@ export default function PriceList({route,navigation}) {
           <CardItem>
             <Text style={{fontSize: 15, marginTop: 10}}>Vintage:2018</Text>
           </CardItem>
-          <CardItem style={{marginBottom:10}}>
+          <CardItem style={{marginBottom:10,flexDirection:'row',justifyContent:'space-between'}}>
             <Text style={{fontSize: 14,  flexDirection:'row',marginTop:-20}}>
             Meursault 1er Blagny
             </Text>
             <View
               style={{
                 alignSelf: 'flex-end',
-                marginLeft: widthPercentageToDP(40),
+               
                 marginTop:-10
               
               }}>
@@ -294,8 +307,13 @@ export default function PriceList({route,navigation}) {
         justifyContent:'center',
             flexDirection:'row' }}>
           
-              
-          <Text style={{color:'#800101'}}>Add to Cart</Text>
+          <Icon
+                          name="shopping-bag"
+                        style={{marginLeft:5}}
+                          size={14}
+                          color="#800101"
+                        />
+          <Text style={{color:'#800101',marginLeft:5}}>Add to Cart</Text>
        
         
           </CardItem>

@@ -5,21 +5,39 @@ import {
   TouchableOpacity,
   View,
   StatusBar,
-  Image,ScrollView
+  Image,ScrollView,
 } from 'react-native';
+import {Picker } from '@react-native-picker/picker'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Input, Button} from 'react-native-elements';
 import {Container, Header} from 'native-base';
+import IconRight from 'react-native-vector-icons/AntDesign';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import SafeAreaView from 'react-native-safe-area-view';
 import ImageOverlay from 'react-native-image-overlay';
+const Item = Picker.Item
+
 export default function Wineries({route,navigation}) {
+  const [occupationName,setItemSelect]= useState('Burgundy')
+  const pickerStyle = {
+    inputIOS: {
+      color: 'white',
+      paddingTop: 13,
+      paddingHorizontal: 10,
+      paddingBottom: 12,
+    },
+    inputAndroid: {
+      color: 'white',
+      backgroundColor:'white'
+    },
+ 
+  };
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar barStyle="dark-content" backgroundColor="#800101" />
+      <StatusBar barStyle="light-content" backgroundColor="#800101" />
       <View
         style={{
           flexDirection: 'row',
@@ -60,54 +78,101 @@ export default function Wineries({route,navigation}) {
           />
         </View>
       </View>
-      <ScrollView style={{flex:1}}>
+      <View
+                                style={{
+                                  // backgroundColor: "#efefef",
+                                  marginHorizontal: 16,
+                                  marginTop: 6,
+                                  width: widthPercentageToDP(98),
+                                  borderRadius: 6
+                                  
+                                ,justifyContent:'center',
+                                alignSelf:'center'
+                                }}
+                              >
+                                <Picker
+                                dropdownIconColor="black"
+                                  mode='dropdown'
+                                  itemStyle={{ paddingLeft: 18, backgroundColor:'white'}}
+                                  style={pickerStyle}
+                                 
+                                  selectedValue={occupationName}
+                                  onValueChange={(itemValue, itemIndex) =>
+                                   setItemSelect(itemValue )
+                                  }
+                                >
+                                 
+                                    <Item
+                                   
+                                      label={"Burgundy"}
+                                      value={"Burgundy"}
+                                    />
+                                    <Item
+                                      
+                                      label={"Champagne"}
+                                      value={"Champagne"}
+                                    />
+                                    <Item
+                                     
+                                      label={"Beaujolais"}
+                                      value={"Beaujolais"}
+                                    />
+                                 
+                                </Picker>
+                              </View>
+                            
+      <ScrollView style={{flex:1, marginTop:5}}>
       <View style={{justifyContent: 'center', alignSelf: 'center', marginTop:0}}>
      <TouchableOpacity onPress={() => navigation.navigate('WineriesDetais')}>
+       {occupationName === 'Burgundy'?
         <ImageOverlay
           style={{alignSelf: 'center'}}
           source={require('../App/assets/f14ad708-8cd2-4189-a81e-169cf27e3921.png')}
           height={2 * 100}
           title="Burgundy"
-          titleStyle={{fontSize: 22, textTransform: 'uppercase'}}
-        />
-        </TouchableOpacity>
-      </View>
-      <View style={{height:50, justifyContent:'center'}}>
-          <Text style={{marginLeft:10, color:'#505050'}}>Antoine Jobard (Meursault)</Text>
-      </View>
-      <View style={{justifyContent: 'center', alignSelf: 'center'}}>
+          titleStyle={{fontSize: 18, textTransform: 'uppercase'}}
+        />: null }
+        {occupationName === 'Champagne'?
         <ImageOverlay
           style={{alignSelf: 'center'}}
           source={require('../App/assets/a0285b0a-5208-415a-b765-0bd6d4f7c441.png')}
           height={2 * 100}
           title="Champagne"
-          titleStyle={{fontSize: 22, textTransform: 'uppercase'}}
-        />
-      </View>
-      <View style={{height:50, justifyContent:'center'}}>
-          <Text style={{marginLeft:10, color:'#505050'}}>Antoine Bouvet (Mareuil-sur-Ay)</Text>
-      </View>
-      <View style={{justifyContent: 'center', alignSelf: 'center'}}>
+          titleStyle={{fontSize: 18, textTransform: 'uppercase'}}
+        />: null }
+        {occupationName === 'Beaujolais'?
         <ImageOverlay
           style={{alignSelf: 'center'}}
           source={require('../App/assets/70f27a1f-d022-466c-9a8d-53ceb037077d.png')}
           height={2 * 100}
           title="Beaujolais"
-          titleStyle={{fontSize: 22, textTransform: 'uppercase'}}
-        />
+          titleStyle={{fontSize: 18, textTransform: 'uppercase'}}
+        /> : null }
+        </TouchableOpacity>
       </View>
-      <View style={{height:50, justifyContent:'center'}}>
-          <Text style={{marginLeft:10, color:'#505050'}}>Anne-Sophie Dubois (Fleurie)</Text>
+      <View style={{ justifyContent:'space-between',marginTop:10}}>
+          <Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Antoine Jobard (Meursault)</Text>
+          <Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Bachelet-Monnot (Maranges)</Text>
+          <Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Ballot-Millot (Meursault)
+</Text>
+<Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Bernard Moreau (Chassagne-Montrachet)</Text>
+<Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Berthaut-Gerbet (Fixin)</Text>
+<Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Caroline Morey (Chassagne-Montrachet)</Text>
+<Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>David Duband (Chevannes)</Text>
+<Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Duroché (Gevrey-Chambertin)</Text>
+<Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Eleni et Edouard Vocoret (Chablis)</Text>
+<Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Georges Noellat/Maxime Cheurlin (Vosne-Romanee)</Text>
+<Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Guffens-Heynen (Macon)</Text>
+<Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Hubert Lamy (St Aubin)</Text>
+<Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Moreau-Naudet (Chablis)</Text>
+<Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Pierre-Yves Colin-Morey (Chassagne-Montrachet)</Text>
+<Text style={{marginLeft:10, color:'#505050',paddingTop:15}}>Maison Verget (Macon)</Text>
       </View>
-      <View style={{justifyContent: 'center', alignSelf: 'center'}}>
-        <ImageOverlay
-          style={{alignSelf: 'center'}}
-          source={require('../App/assets/2d165c51-6410-4af1-ac15-7b1e8b32349c.png')}
-          height={2 * 100}
-          title="RHONE"
-          titleStyle={{fontSize: 22, textTransform: 'uppercase'}}
-        />
-      </View>
+     
+      
+     
+      
+     
       </ScrollView>
     </SafeAreaView>
   );

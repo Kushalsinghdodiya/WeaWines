@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="private">
+  <head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link id="favicon" rel="icon" type="image/png" href="chrome://browser/skin/privatebrowsing/favicon.svg" />
+    <link rel="stylesheet" href="Private%20Browsing_files/aboutPrivateBrowsing.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="Private%20Browsing_files/aboutPrivateBrowsing_002.css" type="text/css" media="all" />
+    <script type="application/javascript" src="Private%20Browsing_files/aboutPrivateBrowsing.js"></script>
+  <title>Private Browsing</title></head>
+
+  <body dir="ltr">
+    <p class="showNormal">You are currently not in a private window.</p>
+    <button xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="startPrivateBrowsing" class="showNormal" label="Open a Private Window" accesskey="P"/>
+    <div class="showPrivate container">
+      <h1 class="title">
+        <span id="title" class="hide">Private Browsing</span>
+        <span id="titleTracking">Private Browsing with Tracking Protection</span>
+      </h1>
+      <section class="section-main">
+        <p>When you browse in a Private Window, Firefox <strong>does not save</strong>:</p>
+        <div class="list-row">
+          <ul>
+            <li>visited pages</li>
+            <li>cookies</li>
+            <li>searches</li>
+            <li>temporary files</li>
+          </ul>
+        </div>
+        <p>Firefox <strong>will save</strong> your:</p>
+        <div class="list-row">
+          <ul>
+            <li>bookmarks</li>
+            <li>downloads</li>
+          </ul>
+        </div>
+        <p>Private Browsing <strong>doesn’t make you anonymous</strong> on the Internet. Your employer or Internet service provider can still know what page you visit.</p>
+      </section>
+
+      <h2 id="tpSubHeader" class="about-subheader">
+        <span class="tpTitle">Tracking Protection</span>
+        <input id="tpToggle" class="toggle toggle-input" checked="checked" type="checkbox" />
+        <span id="tpButton" class="toggle-btn"></span>
+      </h2>
+
+      <section class="section-main">
+        <p>Some websites use trackers that can monitor your activity 
+across the Internet. With Tracking Protection Firefox will block many 
+trackers that can collect information about your browsing behavior.</p>
+        <p>
+          <a id="startTour" class="button" href="https://www.mozilla.org/en-US/firefox/59.0.2/tracking-protection/start/">See how it works</a>
+        </p>
+      </section>
+
+      <section class="section-main">
+        <p class="about-info">Learn more about <a id="learnMore" target="_blank" href="https://support.mozilla.org/1/firefox/59.0.2/Linux/en-US/private-browsing">Private Browsing</a>.</p>
+      </section>
+
+    </div>
+  </body>
+</html>

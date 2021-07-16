@@ -18,32 +18,32 @@ export default function SignUp({route,navigation}) {
       <View style={styles.sub_container}>
         <View style={styles.row}>
           <View style={styles.col}>
-            <Input placeholder="First Name" placeholderTextColor="#505050" style={{fontSize:15, paddingBottom:-5, }} />
+            <Input placeholder="First Name" placeholderTextColor="#505050" style={{fontSize:15, marginBottom:-10 }} />
           </View>
           <View style={styles.col} >
-            <Input placeholder="Last Name" placeholderTextColor="#505050" style={{fontSize:15, paddingBottom:-5}} />
+            <Input placeholder="Last Name" placeholderTextColor="#505050" style={{fontSize:15, marginBottom:-10}} />
           </View>
         </View>
 
-        <Input placeholder="Contact No#" placeholderTextColor="#505050" style={{fontSize:15, paddingBottom:-5}}/>
-        <Input placeholder="Email"  placeholderTextColor="#505050" style={{fontSize:15, paddingBottom:-5}}/>
+        <Input placeholder="Contact No#" placeholderTextColor="#505050" style={{fontSize:15, marginBottom:-10}}/>
+        <Input placeholder="Email"  placeholderTextColor="#505050" style={{fontSize:15, marginBottom:-10}}/>
         <Input
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#505050"
-          style={{fontSize:15, paddingBottom:-5}}
-          rightIcon={<Icon name="eye" size={20} color="black" />}
+          style={{fontSize:15, marginBottom:-15}}
+          rightIcon={<Icon name="eye" size={20} color="black" style={{marginBottom:-15}}/>}
         />
 
         <Input
           placeholder="Confirm Password"
           secureTextEntry={true}
           placeholderTextColor="#505050"
-          style={{fontSize:15, paddingBottom:-5}}
-          rightIcon={<Icons name="eye-with-line" size={20} color="black" />}
+          style={{fontSize:15, marginBottom:-15}}
+          rightIcon={<Icons name="eye-with-line" size={20} color="black" style={{marginBottom:-15}}/>}
         />
 
-        <Button onPress={()=>navigation.navigate('SignUp')} buttonStyle={styles.SignupBtn} title="Signup" />
+        <Button onPress={()=>navigation.navigate('MyRewards')} buttonStyle={styles.SignupBtn} title="Signup" />
       </View>
 
       <View style={styles.option3}>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   option3: {
     alignItems: 'center',
     margin: 5,
-    marginTop:60
+    marginTop:90
   },
   login: {
     color: '#800101',

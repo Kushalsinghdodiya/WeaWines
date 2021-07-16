@@ -16,11 +16,17 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-export default function CartItems() {
+export default function CartItems(route,navigation) {
+  const navigate=()=>{
+    navigation.navigate('Checkout')
+  }
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar barStyle="dark-content" backgroundColor="#800101" />
-      <ScrollView style={{flex: 1, padding: 10}}>
+      <StatusBar barStyle="light-content" backgroundColor="#800101" />
+      <Text style={{color: '#505050', fontSize: 15, paddingLeft:15, marginTop:15 }}>
+      Antoine Jobards
+            </Text>
+      <ScrollView style={{flex: 1, padding: 10,marginTop:-10}}>
         <Card style={{margin: 15, marginTop: 15, borderRadius: 4}}>
           <CardItem style={{display: 'flex', justifyContent: 'space-between'}}>
             <Text style={{fontSize: 15}}>Vintage:2018</Text>
@@ -118,12 +124,16 @@ export default function CartItems() {
           </CardItem>
         </Card>
         <View>
-        <Text style={{margin:10}}>Apply Coupon</Text>
-        <Input
-          variant="outline"
-          placeholder="Outline"
-         style={{borderColor:'grey',borderWidth:0.5,borderRadius:50,paddingLeft:20}}
-        />
+        <Text style={{margin:10,color:'#505050'}}>Apply Coupon</Text>
+       <View  style={{height:heightPercentageToDP(5),flexDirection:'row',justifyContent:'space-between',borderColor:'grey',borderWidth:0.5,borderRadius:50,paddingLeft:20,backgroundColor:'white'}}>
+<View>
+<Text ></Text>
+</View>
+<TouchableOpacity style={{marginBottom:5,width:widthPercentageToDP(35),borderRadius:20,marginTop:5,height:heightPercentageToDP(4),marginRight:5, backgroundColor:'#9b2120', justifyContent:'center'}}>
+  <Text style={{textTransform:'uppercase', color:'white',textAlign:'center'}}>Apply Coupon</Text>
+</TouchableOpacity>
+       </View>
+        
 
 </View>
 
@@ -138,29 +148,22 @@ export default function CartItems() {
             <Text style={{fontSize: 18}}>Item Total</Text>
           </View>
 
-          <View style={{width: '50%', display: 'flex', alignItems: 'flex-end'}}>
-            <Text style={{textAlign: 'right', fontSize: 20}}> $ 364.00</Text>
-          </View>
-        </View>
-        <View style={{display: 'flex', flexDirection: 'row', padding: 12}}>
-          <View style={{width: '50%', display: 'flex'}}>
-            <Text style={{fontSize: 18}}>Item Total</Text>
-          </View>
+          
 
           <View style={{width: '50%', display: 'flex', alignItems: 'flex-end'}}>
             <Text style={{textAlign: 'right', fontSize: 20}}> $ 364.00</Text>
           </View>
         </View>
-        <View style={{display: 'flex', flexDirection: 'row', padding: 12}}>
+        <View style={{display: 'flex', flexDirection: 'row', padding: 12,marginTop:-15}}>
           <View style={{width: '50%', display: 'flex'}}>
             <Text style={{fontSize: 16}}>Shipping</Text>
           </View>
 
           <View style={{width: '50%', display: 'flex', alignItems: 'flex-end'}}>
-            <Text style={{textAlign: 'right', fontSize: 16}}> $4.00</Text>
+            <Text style={{textAlign: 'right', fontSize: 16}}> -</Text>
           </View>
         </View>
-        <View style={{paddingLeft: 10, paddingRight: 10}}>
+        <View style={{paddingLeft: 10, paddingRight: 10,marginTop:5}}>
           <View
             style={{
               borderBottomColor: 'grey',
@@ -182,7 +185,7 @@ export default function CartItems() {
 
           <View style={{width: '50%', display: 'flex', alignItems: 'flex-end'}}>
             <Text
-              style={{textAlign: 'right', fontSize: 20, fontWeight: 'bold'}}>
+              style={{textAlign: 'right', fontSize: 20, }}>
               {' '}
               $ 364.00
             </Text>
@@ -191,13 +194,13 @@ export default function CartItems() {
 
         <Button
           buttonStyle={styles.loginBtn}
-         
+          onPress={() => navigate()}
           title="Proceed to Checkout "
         />
 
 <View style={styles.option2}>
         
-          <TouchableOpacity>
+          <TouchableOpacity >
             <Text style={styles.text}>Continue Shopping </Text>
           </TouchableOpacity>
         </View>

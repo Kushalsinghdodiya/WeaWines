@@ -19,7 +19,7 @@ import {
 export default function Checkout() {
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar barStyle="dark-content" backgroundColor="#800101" />
+      <StatusBar barStyle="light-content" backgroundColor="#800101" />
       <ScrollView style={{flex: 1, padding: 10}}>
         <Text style={{margin: 5, fontSize: 16}}>General Information</Text>
         <Card style={{margin: 15, marginTop: 15, borderRadius: 4}}>
