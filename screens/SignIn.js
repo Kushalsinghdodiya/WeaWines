@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  AsyncStorage
 } from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -17,6 +18,20 @@ export default function SignIn({ route, navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const Notify = msg => { ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.BOTTOM); };
+
+
+
+ const UserSessionData = async (dt) => {
+    try {
+      console.log("this is setting session details",dt)
+      await AsyncStorage.setItem('user_details',JSON.stringify(dt));
+
+    } catch (error) {
+      console.log("login catch",Error);
+    }
+  };
+
+
 
   const handleSubmit = () => {
     const isValid = validator.isEmail(email);
@@ -41,8 +56,12 @@ export default function SignIn({ route, navigation }) {
         })
           .then(function (response) {
             if (response.data.status == 1) {
+
+              console.log("this is sing in ",response.data)
               Notify(response.data.message);
-              navigation.navigate('bottomNavigator');
+              UserSessionData(response.data.userdetails);
+               navigation.navigate('bottomNavigator');
+              
             } else {
               Notify(response.data.message);
               return false;

@@ -1,11 +1,75 @@
-import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  AsyncStorage,
+  ToastAndroid,
+  ActivityIndicator,
+} from 'react-native';
 import {Input, Button, Header} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icons from 'react-native-vector-icons/Entypo';
+import axios from 'axios';
+import Vars from '../utils/Vars';
 export default function Profile({route, navigation}) {
+  const [details, setDetails] = useState({});
+  const [sessionData, setSessionData] = useState({});
+  const [isLoading, SetIsLoading] = useState(false);
+
+  useEffect(() => {
+    _retrieveData();
+   
+  }, []);
+
+  const _retrieveData = async () => {
+    try {
+     
+      const value = await AsyncStorage.getItem('user_details');
+
+      if (value !== null) {
+        setSessionData(JSON.parse(value));
+        fetchUserDetails();
+       
+      }
+    } catch (error) {
+      
+    }
+  };
+
+  const fetchUserDetails = () => {
+    SetIsLoading(true);
+    var body = {user_id: sessionData.id};
+    axios({
+      method: 'post',
+      url: `${Vars.host}view_profile`,
+      data: body,
+      headers: {'Content-Type': 'application/json'},
+    })
+      .then(function (response) {
+        if (response.data.status == 1) {
+          setDetails(response.data.userdetails);
+          SetIsLoading(false);
+        } else {
+          return false;
+        }
+      })
+      .catch(function (response) {
+        alert('INTERNAL SERVER ERROR 500');
+        SetIsLoading(false);
+      });
+  };
+
   return (
     <View style={styles.container}>
+      {isLoading && (
+        <View style={styles.loading}>
+         
+          <ActivityIndicator size="large" color="#800101" />
+        </View>
+      )}
+
       {/* <Header
         leftComponent={{ icon: 'menu', color: 'white' }}
        
@@ -23,16 +87,18 @@ export default function Profile({route, navigation}) {
         <View style={styles.row}>
           <View style={styles.col}>
             <Input
-              placeholder="John Doe"
+              placeholder="First Name"
               placeholderTextColor="#505050"
               style={{fontSize: 15, paddingBottom: -5}}
+              value={details.first_name}
             />
           </View>
           <View style={styles.col}>
             <Input
-              placeholder="Williams"
+              placeholder="Last Name"
               placeholderTextColor="#505050"
               style={{fontSize: 15, paddingBottom: -5}}
+              value={details.last_name}
             />
           </View>
         </View>
@@ -42,12 +108,14 @@ export default function Profile({route, navigation}) {
           placeholder="johndoe152@gmail.com"
           placeholderTextColor="#505050"
           style={{fontSize: 15, paddingBottom: -5}}
+          value={details.email}
         />
         <Text style={{color: '#505050', padding: 10}}>Contact No#</Text>
         <Input
-          placeholder="+65 5685 5685"
+          placeholder="Phone Number"
           placeholderTextColor="#505050"
           style={{fontSize: 15, paddingBottom: -5}}
+          value={details.mobile_number}
         />
         <Text style={{color: '#505050', padding: 10}}>Password</Text>
         <Input
@@ -59,7 +127,8 @@ export default function Profile({route, navigation}) {
         />
 
         <View style={styles.forgetdiv}>
-          <TouchableOpacity onPress={()=>navigation.navigate('ChangePassword')}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ChangePassword')}>
             <Text style={{color: '#800101', textDecorationLine: 'underline'}}>
               Change Password{' '}
             </Text>
@@ -118,5 +187,14 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     paddingBottom: 30,
     paddingRight: 10,
+  },
+  loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

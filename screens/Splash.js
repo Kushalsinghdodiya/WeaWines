@@ -12,7 +12,7 @@ class Splash extends React.Component{
         }, 2000);
     }
      getData = async () => {
-         this.props.navigation.navigate('SignUp')
+         this.props.navigation.navigate('SignIn')
       };
     render(){
         return(
