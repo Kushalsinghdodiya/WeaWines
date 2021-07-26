@@ -19,6 +19,7 @@
     "@react-navigation/stack": "^5.14.5",
     "axios": "^0.21.1",
     "native-base": "^2.15.2",
+    "oauth-signature": "^1.5.0",
     "react": "17.0.1",
     "react-native": "0.64.2",
     "react-native-cards-slider": "^0.1.2",
@@ -34,6 +35,7 @@
     "react-native-screens": "^3.4.0",
     "react-native-tab-view": "^3.0.1",
     "react-native-vector-icons": "^8.1.0",
+    "react-native-woocommerce-api": "^1.8.8",
     "validator": "^13.6.0"
   },
   "devDependencies": {

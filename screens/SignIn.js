@@ -26,127 +26,50 @@ export default function SignIn({route, navigation}) {
   const Notify = msg => {
     ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
   };
-  var config = {
-    method: 'get',
-    url: 'http://18.217.240.195/wp-json/wc/v3/products?consumer_key=ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826&consumer_secret=cs_446bb534522c3354236068c05a1e3c1103acdec0&oauth_consumer_key=ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1627112840&oauth_nonce=w8k5XLQh57X&oauth_version=1.0&oauth_signature=MNx0ak7GBpp8zSehed9cGnqOwSk%3D',
-    headers: { }
-  };
-  useEffect(() => {
-    const api = new WooCommerceAPI({
-      url: "http://18.217.240.195",
-      consumerKey: "ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826",
-      consumerSecret: "cs_446bb534522c3354236068c05a1e3c1103acdec0",
-      version: "wc/v3"
-    });
-    
-    // List products
-    api.get("products", {
-      per_page: 20, // 20 products per page
-    })
-      .then((response) => {
-        // Successful request
-        console.log("Response Data:", response);
-      })
-      .catch((error) => {
-        // Invalid request, for 4xx and 5xx statuses
-        console.log("Response Error:", error.response.data);
-      })
-      .finally(() => {
-        // Always executed.
-      });
-    // var CryptoJS = require("crypto-js");
-    // const oauth_timestamp = Math.floor(Date.now() / 1000);
-    // const oauth_nonce = uuid.v1(); 
-    // const parameters = {
-    //     oauth_consumer_key:"ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826",
-    //     oauth_signature_method:"HMAC-SHA1",
-    //     oauth_timestamp: oauth_timestamp,
-    //     oauth_nonce: oauth_nonce,
-    //     oauth_version:"1.0"
-    // }
-    
-    // function generateEncodedParameters (parameters) {
-    //     let ordered = {};
-    //     Object.keys(parameters).sort().forEach(function(key) {
-    //         ordered[key] = parameters[key];
-    //     });
-        
-    //     let encodedParameters = '';
-    //     for (k in ordered) {
-    //       const encodedValue = escape(ordered[k]);
-    //       const encodedKey = encodeURIComponent(k);
-    //       if(encodedParameters === ''){
-    //          encodedParameters += encodeURIComponent(`${encodedKey}=${encodedValue}`)
-    //       }
-    //       else{
-    //        encodedParameters += encodeURIComponent(`&${encodedKey}=${encodedValue}`);
-    //       }
-    //     }
-    //     console.log(encodedParameters);
-            
-    // }
-    
-    // let encodedParameters = generateEncodedParameters(parameters)
-    
-    
-    // const method = 'GET';
-    // const base_url = 'http://18.217.240.195/wp-json/wc/v3/products?consumer_key=ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826&consumer_secret=cs_446bb534522c3354236068c05a1e3c1103acdec0';
-    // const encodedUrl = encodeURIComponent(base_url);
-    // encodedParameters = encodeURIComponent(encodedParameters); // encodedParameters which we generated in last step.
-    // const signature_base_string = `${method}&${encodedUrl}&${encodedParameters}`
-    
-    // console.log(signature_base_string)
-    
-    // const secret_key = `cs_446bb534522c3354236068c05a1e3c1103acdec0`;
-    // const signing_key = `${secret_key}&`; //as token is missing in our case.
-    
-    // const oauth_signature =  CryptoJS.HmacSHA1("Message", signing_key)
-    // console.log(oauth_signature);
-    
-    // const encoded_oauth_signature = encodeURIComponent(oauth_signature);
-    // console.log(encoded_oauth_signature);
-    
-    // const authHeader = `OAuth oauth_consumer_key=${secret_key},
-    //     oauth_signature_method='HMAC-SHA1',
-    //     oauth_timestamp=${parameters.oauth_timestamp},
-    //     oauth_nonce=${parameters.oauth_nonce},
-    //     oauth_version=${parameters.oauth_version},
-    //     oauth_signature=${encoded_oauth_signature}`
-    
-    // console.log("outhheader",authHeader)
-    // // var axios = require('axios');
 
-    // var config = {
-    //   method: 'get',
-    //   url: 'http://18.217.240.195/wp-json/wc/v3/products?consumer_key=ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826&consumer_secret=cs_446bb534522c3354236068c05a1e3c1103acdec0',
-    //   headers: { 
-    //   Authorization:  authHeader
-    //   }
-    // };
+  // var config = {
+  //   method: 'get',
+  //   url: 'http://18.217.240.195/wp-json/wc/v3/products?consumer_key=ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826&consumer_secret=cs_446bb534522c3354236068c05a1e3c1103acdec0&oauth_consumer_key=ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1627112840&oauth_nonce=w8k5XLQh57X&oauth_version=1.0&oauth_signature=MNx0ak7GBpp8zSehed9cGnqOwSk%3D',
+  //   headers: { }
+  // };
+ 
+ 
     
-    // axios(config)
-    // .then(function (response) {
-    //   console.log(JSON.stringify(response.data));
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
-    
-    // const WooCommerceAPIs = new WooCommerceAPI({
-    //   url: 'http://18.217.240.195/wp-json/wc/v3/', // Your store URL
-    //   ssl: true,
-    //   consumerKey: 'ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826', // Your consumer secret
-    //   consumerSecret: 'cs_446bb534522c3354236068c05a1e3c1103acdec0', // Your consumer secret
+  const UserSessionData = async (dt) => {
+    try {
+      console.log("this is setting session details",dt)
+      await AsyncStorage.setItem('user_details',JSON.stringify(dt));
       
-    //   queryStringAuth: true
+    } catch (error) {
+      console.log("login catch",Error);
+    }
+  };
+  
+
+  useEffect(() => {
+    // const api = new WooCommerceAPI({
+    //   url: "http://18.217.240.195",
+    //   consumerKey: "ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826",
+    //   consumerSecret: "cs_446bb534522c3354236068c05a1e3c1103acdec0",
+    //   version: "wc/v3"
     // });
-    // WooCommerceAPIs.get('products')
-    // .then(data => {
-    //   console.log(data);
+    
+    // // List products
+    // api.get("products", {
+    //   per_page: 20, // 20 products per page
     // })
-    // .catch(error => {
-    //   console.log(error);
-    // });
+    //   .then((response) => {
+    //     // Successful request
+    //     console.log("Response Data:", response);
+    //   })
+    //   .catch((error) => {
+    //     // Invalid request, for 4xx and 5xx statuses
+    //     //console.log("Response Error:", error.response);
+    //   })
+    //   .finally(() => {
+    //     // Always executed.
+    //   });
+   
 
   });
 
@@ -173,7 +96,7 @@ export default function SignIn({route, navigation}) {
         })
           .then(function (response) {
             if (response.data.status == 1) {
-              console.log('this is sing in ', response.data);
+            
               Notify(response.data.message);
               UserSessionData(response.data.userdetails);
               navigation.navigate('bottomNavigator');
