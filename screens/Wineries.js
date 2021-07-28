@@ -23,26 +23,32 @@ const Item = Picker.Item
 
 export default function Wineries({ route, navigation }) {
   const [occupationName, setItemSelect] = useState('')
-  const [products,setProducts]=useState([]);
-  const [catprod,setcaatprod]=useState([]);
-  const [categories,setCategories]=useState([]);
+  const [products, setProducts] = useState([]);
+  const [catprod, setcaatprod] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedProduct, setselectedProduct] = useState(0);
+  const [html, setHtml] = useState('');
+
+
   const api = new WooCommerceAPI({
     url: "http://18.217.240.195",
     consumerKey: "ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826",
     consumerSecret: "cs_446bb534522c3354236068c05a1e3c1103acdec0",
     version: "wc/v3"
   });
-  
-    
+
+
   useEffect(() => {
- // List products
+    // List products
     api.get("products", {
       per_page: 20, // 20 products per page
     })
       .then((response) => {
+        // console.log("products ",response);
         // Successful request
-       setProducts(response);
-      
+        setProducts(response);
+        setItemSelect(response[0].name)
+
       })
       .catch((error) => {
         // Invalid request, for 4xx and 5xx statuses
@@ -51,32 +57,45 @@ export default function Wineries({ route, navigation }) {
       .finally(() => {
         // Always executed.
       });
-});
+  }, []);
 
 
 
-  const handleInput= async (val)=>{
-   
-   
+  const handleInput = async (val) => {
+    console.log("this is selected ", val);
+
+    let sle = val;
+    setselectedProduct(sle);
+
+    let arrdata = [];
     setItemSelect(val);
-   
+
+
     await api.get(`products/${val}`, {
-      per_page: 20, 
+      per_page: 20,
     })
       .then((response) => {
-        // Successful request
-        setcaatprod([...response]);
-        console.log("categoreie ",catprod);
-        //console.log("this is single categoreie ",catprod);
-        setCategories(res[0].categories);
-     })
+
+        console.log("description", response.short_description);
+        let sds = response.description;
+        setHtml(sds);
+
+        response.categories.map(data => {
+          arrdata.push(data);
+        })
+
+        setcaatprod([...arrdata]);
+
+        setCategories([...response.categories]);
+      })
       .catch((error) => {
 
       })
-      console.log("this is vlalue",val);
- 
+
+    console.log("this is html code ", html);
   }
- 
+
+
 
   const pickerStyle = {
     inputIOS: {
@@ -97,6 +116,7 @@ export default function Wineries({ route, navigation }) {
 
 
   return (
+
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar barStyle="light-content" backgroundColor="#800101" />
       <View
@@ -158,31 +178,42 @@ export default function Wineries({ route, navigation }) {
           style={pickerStyle}
 
           selectedValue={occupationName}
-          onValueChange={(itemValue, itemIndex) =>handleInput(itemValue)}
+          onValueChange={(itemValue, itemIndex) => handleInput(itemValue)}
         >
 
-          {products.map((data,index)=>{
-            return(
+          {products.map((data, index) => {
+
+
+            return (
               <Item
-                    key={index}
-                    
-                    label={data.name}
-                    value={data.id}
-                    />
+                key={index}
+                label={data.name}
+                value={data.id}
+              />
             );
-      })}
-            
+          })}
+
 
         </Picker>
       </View>
 
       <ScrollView style={{ flex: 1, marginTop: 5 }}>
         <View style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 0 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('WineriesDetais')}>
+
+          {/*         
+        {/* {products.filter(dt=>dt.id==selectedProduct).map(data=>{
+          console.log(")
+        })} */}
+
+
+          <TouchableOpacity onPress={() => navigation.navigate('WineriesDetais', { code: html })}>
             {occupationName === 'Burgundy' ?
               <ImageOverlay
                 style={{ alignSelf: 'center' }}
                 source={require('../App/assets/f14ad708-8cd2-4189-a81e-169cf27e3921.png')}
+                // source={{
+                //   uri: 'https://example.com/wp-content/uploads/2017/03/T_2_back-2.jpg',
+                // }}
                 height={2 * 100}
                 title="Burgundy"
                 titleStyle={{ fontSize: 18, textTransform: 'uppercase' }}
@@ -191,6 +222,9 @@ export default function Wineries({ route, navigation }) {
               <ImageOverlay
                 style={{ alignSelf: 'center' }}
                 source={require('../App/assets/a0285b0a-5208-415a-b765-0bd6d4f7c441.png')}
+                // source={{
+                //   uri: 'https://example.com/wp-content/uploads/2017/03/T_2_back-2.jpg',
+                // }}
                 height={2 * 100}
                 title="Champagne"
                 titleStyle={{ fontSize: 18, textTransform: 'uppercase' }}
@@ -205,13 +239,15 @@ export default function Wineries({ route, navigation }) {
               /> : null}
           </TouchableOpacity>
         </View>
-        
+
         <View style={{ justifyContent: 'space-between', marginTop: 10 }}>
 
-        {categories.map((data,index)=>{
-          return  <Text key={index} style={{ marginLeft: 10, color: '#505050', paddingTop: 15 }}>Antoine Jobard (Meursault)</Text>
-        })}
-         
+          {categories.map((data, index) => {
+
+            console.log("categories", data)
+            return <Text key={index} style={{ marginLeft: 10, color: '#505050', paddingTop: 15 }}>{data.name}</Text>
+          })}
+
           {/* <Text style={{ marginLeft: 10, color: '#505050', paddingTop: 15 }}>Bachelet-Monnot (Maranges)</Text>
           <Text style={{ marginLeft: 10, color: '#505050', paddingTop: 15 }}>Ballot-Millot (Meursault)
           </Text>

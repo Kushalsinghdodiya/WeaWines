@@ -1,8 +1,10 @@
 import React from 'react';
-import {StyleSheet,ScrollView, Image, Text, TouchableOpacity, View} from 'react-native';
+ 
+import {StyleSheet,ScrollView, Image, Text, TouchableOpacity, View,useWindowDimensions} from 'react-native';
 import {Appbar} from 'react-native-paper';
 import {Input, Button} from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import RenderHtml from 'react-native-render-html';
 
 export default function WineriesDetail({route, navigation}) {
   // const WinerHeader = () => (
@@ -11,6 +13,15 @@ export default function WineriesDetail({route, navigation}) {
   //     </Appbar.Header>
   // );
 
+  const { width } = useWindowDimensions();
+
+  const { code } = route.params;
+  const source = {
+    html: `${code}`
+  };
+  
+console.log("this is prop", code);
+  
   return (
    
     <View style={styles.container}>
@@ -28,7 +39,12 @@ export default function WineriesDetail({route, navigation}) {
           What WEA say ?
         </Text>
         <Text style={{fontSize: 13, color: '#505050',letterSpacing:.5}}>
-        Antoine – the 5th generation of the family – officially took over the Domaine from his father Francois in 2006. They have just over 6 ha of vines predominantly in Meursault and they only make white wines. Very little new oak is used here – only 15% on average. The Bourgogne Blanc is usually a sign of how great a Domaine is and the example here, made from 4 different parcels around Meursault, is absolutely stunning and a ringer for a basic villages Meursault. He makes two different single vineyard villages cuvee, En La Barre on offer today and Tillets which we will have for the ’13s. The Premier Crus, are without doubt, a class of their own. Blagny from a higher altitude and Poruzots situated right beside Genevrieres.
+        <RenderHtml
+          contentWidth={width}
+          source={source}
+          enableExperimentalMarginCollapsing={true}
+        />
+        {/* Antoine – the 5th generation of the family – officially took over the Domaine from his father Francois in 2006. They have just over 6 ha of vines predominantly in Meursault and they only make white wines. Very little new oak is used here – only 15% on average. The Bourgogne Blanc is usually a sign of how great a Domaine is and the example here, made from 4 different parcels around Meursault, is absolutely stunning and a ringer for a basic villages Meursault. He makes two different single vineyard villages cuvee, En La Barre on offer today and Tillets which we will have for the ’13s. The Premier Crus, are without doubt, a class of their own. Blagny from a higher altitude and Poruzots situated right beside Genevrieres. */}
         {' '}
         </Text>
       </View>
