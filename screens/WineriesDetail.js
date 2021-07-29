@@ -5,13 +5,19 @@ import {Appbar} from 'react-native-paper';
 import {Input, Button} from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import RenderHtml from 'react-native-render-html';
-
+import WooCommerceAPI from 'react-native-woocommerce-api';
 export default function WineriesDetail({route, navigation}) {
   // const WinerHeader = () => (
   //     <Appbar.Header  style={styles.header} >
   //       <Appbar.BackAction  />
   //     </Appbar.Header>
   // );
+  const api = new WooCommerceAPI({
+    url: "http://18.217.240.195",
+    consumerKey: "ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826",
+    consumerSecret: "cs_446bb534522c3354236068c05a1e3c1103acdec0",
+    version: "wc/v3"
+  });
 
   const { width } = useWindowDimensions();
 
@@ -19,6 +25,8 @@ export default function WineriesDetail({route, navigation}) {
   const source = {
     html: `${code}`
   };
+
+
   
 console.log("this is prop", code);
   

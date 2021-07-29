@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -19,7 +19,22 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import WooCommerceAPI from 'react-native-woocommerce-api';
+
+
+const api = new WooCommerceAPI({
+  url: "http://18.217.240.195",
+  consumerKey: "ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826",
+  consumerSecret: "cs_446bb534522c3354236068c05a1e3c1103acdec0",
+  version: "wc/v3"
+});
+
+
 export default function MyOrders({route, navigation}) {
+
+
+
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar barStyle="light-content" backgroundColor="#800101" />
@@ -47,7 +62,7 @@ export default function MyOrders({route, navigation}) {
                 marginTop:-5,
                     fontWeight: '700',
                   }}>
-                  Antoine Jobard
+                  Atoine Jobard
                 </Text>
                 <Text style={{color: '#2e2e2e', fontSize: 13, paddingTop:7}}>
                 Meursault 1er Blagny
@@ -95,6 +110,9 @@ export default function MyOrders({route, navigation}) {
             </CardItem>
           </Card>
         </View>
+
+
+        
         <View style={{justifyContent: 'center', padding: 15}}>
           <Card
             style={{
