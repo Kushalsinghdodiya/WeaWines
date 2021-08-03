@@ -1,4 +1,13 @@
 
 export default {
-    host: 'http://18.141.186.50:9001/api/v1/',
+    host: 'https://weawines.shubhchintak.com/',
 }
+
+
+// {
+//     "username": "qwerty",
+//     "first_name" : "qwerty",
+//     "last_name":"singh",
+//     "password":"12345678",
+//     "email":"qwertysingh@gmail.com"
+//     }

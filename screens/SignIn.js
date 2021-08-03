@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ToastAndroid,
   StyleSheet,
@@ -11,7 +11,7 @@ import {
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icons from 'react-native-vector-icons/Fontisto';
-import {Input, Button} from 'react-native-elements';
+import { Input, Button } from 'react-native-elements';
 import validator from 'validator';
 import Vars from '../utils/Vars';
 
@@ -19,61 +19,30 @@ import oauthSignature from 'oauth-signature'
 import WooCommerceAPI from 'react-native-woocommerce-api';
 import uuid from "uuid";
 
-export default function SignIn({route, navigation}) {
+export default function SignIn({ route, navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
   const Notify = msg => {
     ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
   };
 
-  // var config = {
-  //   method: 'get',
-  //   url: 'http://18.217.240.195/wp-json/wc/v3/products?consumer_key=ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826&consumer_secret=cs_446bb534522c3354236068c05a1e3c1103acdec0&oauth_consumer_key=ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1627112840&oauth_nonce=w8k5XLQh57X&oauth_version=1.0&oauth_signature=MNx0ak7GBpp8zSehed9cGnqOwSk%3D',
-  //   headers: { }
-  // };
- 
- 
-    
+
+
   const UserSessionData = async (dt) => {
     try {
-      console.log("this is setting session details",dt)
-      await AsyncStorage.setItem('user_details',JSON.stringify(dt));
-      
+      console.log("this is setting session details", dt)
+      await AsyncStorage.setItem('user_details', JSON.stringify(dt));
+
     } catch (error) {
-      console.log("login catch",Error);
+      console.log("login catch", Error);
     }
   };
-  
 
-  useEffect(() => {
-    // const api = new WooCommerceAPI({
-    //   url: "http://18.217.240.195",
-    //   consumerKey: "ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826",
-    //   consumerSecret: "cs_446bb534522c3354236068c05a1e3c1103acdec0",
-    //   version: "wc/v3"
-    // });
-    
-    // // List products
-    // api.get("products", {
-    //   per_page: 20, // 20 products per page
-    // })
-    //   .then((response) => {
-    //     // Successful request
-    //     console.log("Response Data:", response);
-    //   })
-    //   .catch((error) => {
-    //     // Invalid request, for 4xx and 5xx statuses
-    //     //console.log("Response Error:", error.response);
-    //   })
-    //   .finally(() => {
-    //     // Always executed.
-    //   });
-   
-
-  });
 
   const handleSubmit = () => {
+
+    console.log("this is handle submit login");
     const isValid = validator.isEmail(email);
 
     if (email == '' || password == '') {
@@ -83,30 +52,34 @@ export default function SignIn({route, navigation}) {
       Notify(msg);
     } else {
       try {
+
+        navigation.navigate('bottomNavigator');
         var body = {
-          user_name: email,
+          username: email,
           password: password,
         };
 
         axios({
           method: 'post',
-          url: `${Vars.host}login`,
+          url: `${Vars.host}wp-json/letscms/v1/auth/login`,
           data: body,
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'text/plain' },
+        }).then(function (response) {
+        
+          console.log(response.data);
+
+          if (response.data.status == 200) {
+
+            Notify(response.data.message);
+            UserSessionData(response.data.userdetails);
+            // navigation.navigate('bottomNavigator');
+          } else {
+            Notify(response.data.message);
+            return false;
+          }
         })
-          .then(function (response) {
-            if (response.data.status == 1) {
-            
-              Notify(response.data.message);
-              UserSessionData(response.data.userdetails);
-              navigation.navigate('bottomNavigator');
-            } else {
-              Notify(response.data.message);
-              return false;
-            }
-          })
           .catch(function (response) {
-            console.log(response);
+            // console.log(response);
           });
       } catch (error) {
         Notify(error);
@@ -130,12 +103,12 @@ export default function SignIn({route, navigation}) {
       <View style={styles.sub_container}>
         <Input
           placeholder="Email"
-          style={{fontSize: 15, marginBottom: -20}}
+          style={{ fontSize: 15, marginBottom: -20 }}
           rightIcon={
             <Icons
               name="email"
               size={20}
-              style={{marginBottom: -20}}
+              style={{ marginBottom: -20 }}
               color="black"
             />
           }
@@ -145,12 +118,12 @@ export default function SignIn({route, navigation}) {
         <Input
           placeholder="Password"
           secureTextEntry={true}
-          style={{fontSize: 15, marginBottom: -20}}
+          style={{ fontSize: 15, marginBottom: -20 }}
           rightIcon={
             <Icon
               name="eye"
               size={20}
-              style={{marginBottom: -20}}
+              style={{ marginBottom: -20 }}
               color="black"
             />
           }
@@ -171,28 +144,28 @@ export default function SignIn({route, navigation}) {
         />
 
         <View style={styles.option}>
-          <Text style={{fontSize: 15}}>or</Text>
+          <Text style={{ fontSize: 15 }}>or</Text>
         </View>
         <TouchableOpacity style={styles.social_btn1}>
-          <View style={{padding: 15, paddingLeft: 20, width: 150}}>
+          <View style={{ padding: 15, paddingLeft: 20, width: 150 }}>
             <Image
               width={30}
               height={30}
               source={require('../navigation/assets/google.png')}
             />
           </View>
-          <Text style={{paddingTop: 15, fontSize: 14}}>Login With Google</Text>
+          <Text style={{ paddingTop: 15, fontSize: 14 }}>Login With Google</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.social_btn1}>
-          <View style={{padding: 15, paddingLeft: 20, width: 147}}>
+          <View style={{ padding: 15, paddingLeft: 20, width: 147 }}>
             <Image
               width={30}
               height={30}
               source={require('../navigation/assets/facebook.png')}
             />
           </View>
-          <Text style={{paddingTop: 15, fontSize: 14}}>
+          <Text style={{ paddingTop: 15, fontSize: 14 }}>
             Login With Facebook
           </Text>
         </TouchableOpacity>
@@ -202,7 +175,7 @@ export default function SignIn({route, navigation}) {
             <Image
               width={35}
               height={35}
-              style={{marginTop: 3}}
+              style={{ marginTop: 3 }}
               source={require('../navigation/assets/user.png')}
             />
           </View>
@@ -212,7 +185,7 @@ export default function SignIn({route, navigation}) {
         </View>
 
         <View style={styles.option3}>
-          <Text style={{color: '#505050'}}>
+          <Text style={{ color: '#505050' }}>
             Don't have an account ?
             <Text
               onPress={() => navigation.navigate('SignUp')}

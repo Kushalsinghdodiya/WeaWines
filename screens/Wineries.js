@@ -19,6 +19,7 @@ import {
 import SafeAreaView from 'react-native-safe-area-view';
 import ImageOverlay from 'react-native-image-overlay';
 import WooCommerceAPI from 'react-native-woocommerce-api';
+import axios from 'axios';
 const Item = Picker.Item
 
 export default function Wineries({ route, navigation }) {
@@ -28,7 +29,7 @@ export default function Wineries({ route, navigation }) {
   const [categories, setCategories] = useState([]);
   const [selectedProduct, setselectedProduct] = useState(0);
   const [html, setHtml] = useState('');
-
+  const [newproductapi, setProductApi] = useState([])
 
   const api = new WooCommerceAPI({
     url: "http://18.217.240.195",
@@ -38,31 +39,40 @@ export default function Wineries({ route, navigation }) {
   });
 
 
-  useEffect(() => {
-    // List products
-    api.get("products", {
-      per_page: 20, // 20 products per page
-    })
-      .then((response) => {
-        // console.log("products ",response);
-        // Successful request
-        setProducts(response);
-        setItemSelect(response[0].name)
+  useEffect(async () => {
 
-      })
-      .catch((error) => {
-        // Invalid request, for 4xx and 5xx statuses
-        //console.log("Response Error:", error.response);
-      })
-      .finally(() => {
-        // Always executed.
-      });
-  }, []);
+    // api.get("products", {
+    //   per_page: 20, // 20 products per page
+    // })
+    //   .then((response) => {
+    //     // console.log("products ",response);
+    //     // Successful request
+    //     setProducts(response);
+    //     setItemSelect(response[0].name)
+
+    //   })
+    //   .catch((error) => {
+    //     // Invalid request, for 4xx and 5xx statuses
+    //     //console.log("Response Error:", error.response);
+    //   })
+    //   .finally(() => {
+    //     // Always executed.
+    //   });
+
+// https://weawines.shubhchintak.com/wp-json/letscms/v1/products ( GETTING NOT RESPONSE FROM THIS URL)
+
+    const res = await axios.get('https://fmw.vxinfosystem.com/wp-json/letscms/v1/products')
+      .then((response) => {
+        let arr = [];
+        arr = [response.data];
+      setProductApi(arr[0].data.products)
+    });
+}, []);
 
 
 
   const handleInput = async (val) => {
-    console.log("this is selected ", val);
+   
 
     let sle = val;
     setselectedProduct(sle);
@@ -76,7 +86,7 @@ export default function Wineries({ route, navigation }) {
     })
       .then((response) => {
 
-        console.log("description", response.short_description);
+
         let sds = response.description;
         setHtml(sds);
 
@@ -92,7 +102,7 @@ export default function Wineries({ route, navigation }) {
 
       })
 
-    console.log("this is html code ", html);
+
   }
 
 
@@ -181,7 +191,7 @@ export default function Wineries({ route, navigation }) {
           onValueChange={(itemValue, itemIndex) => handleInput(itemValue)}
         >
 
-          {products.map((data, index) => {
+          {newproductapi.map((data, index) => {
 
 
             return (

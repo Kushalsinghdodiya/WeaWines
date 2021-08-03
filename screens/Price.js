@@ -20,12 +20,17 @@ import SafeAreaView from 'react-native-safe-area-view';
 import ImageOverlay from 'react-native-image-overlay';
 import WooCommerceAPI from 'react-native-woocommerce-api';
 
+
+
+
 const api = new WooCommerceAPI({
   url: "http://18.217.240.195",
   consumerKey: "ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826",
   consumerSecret: "cs_446bb534522c3354236068c05a1e3c1103acdec0",
   version: "wc/v3"
 });
+
+
 
 export default function PriceList({ route, navigation }) {
   const [subCat, setSubCat] = useState([]);
@@ -37,7 +42,7 @@ export default function PriceList({ route, navigation }) {
       .then((response) => {
 
         setSubCat([response]);
-        console.log("This is state of subcat ",subCat);
+     
       })
       .catch((error) => {
         console.log("error", error);

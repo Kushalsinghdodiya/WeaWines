@@ -46,21 +46,23 @@ export default function SignUp({ route, navigation }) {
     } else {
       var body = {
         first_name: firstname,
-        last_name: lastname,
+        last_name : lastname,
+        username : firstname+lastname,
         email: email,
         password: password,
         mobile_number: contactNo,
       };
 
+   
       axios({
         method: 'post',
-        url: `${Vars.host}signup`,
+        url: `${Vars.host}/wp-json/letscms/v1/auth/register`,
         data: body,
         headers: { 'Content-Type': 'application/json' },
       })
         .then(function (response) {
           console.log(response.data);
-          if (response.data.status == 1) {
+          if (response.data.status == 200) {
             Notify(response.data.message);
             navigation.navigate('SignIn');
           } else {
