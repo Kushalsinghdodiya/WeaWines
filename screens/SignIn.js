@@ -6,7 +6,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-  AsyncStorage,
+ 
 } from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -14,10 +14,11 @@ import Icons from 'react-native-vector-icons/Fontisto';
 import { Input, Button } from 'react-native-elements';
 import validator from 'validator';
 import Vars from '../utils/Vars';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import oauthSignature from 'oauth-signature'
 import WooCommerceAPI from 'react-native-woocommerce-api';
 import uuid from "uuid";
+import _ from 'lodash'
 
 export default function SignIn({ route, navigation }) {
   const [email, setEmail] = useState('');
@@ -33,6 +34,7 @@ export default function SignIn({ route, navigation }) {
     try {
       console.log("this is setting session details", dt)
       await AsyncStorage.setItem('user_details', JSON.stringify(dt));
+      await AsyncStorage.setItem('user_token', JSON.stringify(dt.letscms_token));
 
     } catch (error) {
       console.log("login catch", Error);
@@ -42,7 +44,7 @@ export default function SignIn({ route, navigation }) {
 
   const handleSubmit = () => {
 
-    console.log("this is handle submit login");
+   
     const isValid = validator.isEmail(email);
 
     if (email == '' || password == '') {
@@ -51,28 +53,28 @@ export default function SignIn({ route, navigation }) {
       let msg = 'Invalid Email';
       Notify(msg);
     } else {
+     
       try {
-
-        navigation.navigate('bottomNavigator');
+        console.log("this is handle submit loginss");
+        // navigation.navigate('bottomNavigator');
         var body = {
-          username: email,
-          password: password,
-        };
-
+          "username":email,
+          "password":password
+        }
         axios({
           method: 'post',
           url: `${Vars.host}wp-json/letscms/v1/auth/login`,
           data: body,
-          headers: { 'Content-Type': 'text/plain' },
+          headers: { 'Content-Type': 'application/json' },
         }).then(function (response) {
-        
-          console.log(response.data);
+         
+          console.log(response);
 
-          if (response.data.status == 200) {
+          if (response.status == 200) {
 
-            Notify(response.data.message);
-            UserSessionData(response.data.userdetails);
-            // navigation.navigate('bottomNavigator');
+            Notify("Logged In Successfully");
+            UserSessionData(response.data);
+            navigation.navigate('bottomNavigator');
           } else {
             Notify(response.data.message);
             return false;

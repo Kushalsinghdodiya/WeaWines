@@ -25,9 +25,10 @@ const Item = Picker.Item
 export default function Wineries({ route, navigation }) {
   const [occupationName, setItemSelect] = useState('')
   const [products, setProducts] = useState([]);
-  const [catprod, setcaatprod] = useState([]);
+  const [catprod, setcaatprod] = useState(false);
   const [categories, setCategories] = useState([]);
   const [selectedProduct, setselectedProduct] = useState(0);
+  const [selectedProductName, setselectedProductName] = useState('Different Tshirt');
   const [html, setHtml] = useState('');
   const [newproductapi, setProductApi] = useState([])
 
@@ -41,31 +42,23 @@ export default function Wineries({ route, navigation }) {
 
   useEffect(async () => {
 
-    // api.get("products", {
-    //   per_page: 20, // 20 products per page
-    // })
-    //   .then((response) => {
-    //     // console.log("products ",response);
-    //     // Successful request
-    //     setProducts(response);
-    //     setItemSelect(response[0].name)
+    
 
-    //   })
-    //   .catch((error) => {
-    //     // Invalid request, for 4xx and 5xx statuses
-    //     //console.log("Response Error:", error.response);
-    //   })
-    //   .finally(() => {
-    //     // Always executed.
-    //   });
-
-// https://weawines.shubhchintak.com/wp-json/letscms/v1/products ( GETTING NOT RESPONSE FROM THIS URL)
-
-    const res = await axios.get('https://fmw.vxinfosystem.com/wp-json/letscms/v1/products')
+    const res = await axios.get('https://weawines.shubhchintak.co/wp-json/wp/v2/categories')
       .then((response) => {
+        console.log("adsss",response.data)
         let arr = [];
         arr = [response.data];
-      setProductApi(arr[0].data.products)
+       setProductApi(response.data)
+      
+    });
+    const res1 = await axios.get('https://weawines.shubhchintak.co/wp-json/wp/v2/wineries')
+      .then((response) => {
+        
+        let arr = [];
+        arr = [response.data];
+        setCategories(response.data)
+        setcaatprod(true)
     });
 }, []);
 
@@ -73,9 +66,18 @@ export default function Wineries({ route, navigation }) {
 
   const handleInput = async (val) => {
    
-
+    setselectedProductName(val)
     let sle = val;
-    setselectedProduct(sle);
+    {newproductapi.map((data, index) => {
+      if(data.name === val){
+      return (
+    
+      setselectedProduct(data.image)
+      );
+      }
+    })}
+
+    
 
     let arrdata = [];
     setItemSelect(val);
@@ -188,7 +190,7 @@ export default function Wineries({ route, navigation }) {
           style={pickerStyle}
 
           selectedValue={occupationName}
-          onValueChange={(itemValue, itemIndex) => handleInput(itemValue)}
+          // onValueChange={(itemValue, itemIndex) => handleInput(itemValue)}
         >
 
           {newproductapi.map((data, index) => {
@@ -198,7 +200,7 @@ export default function Wineries({ route, navigation }) {
               <Item
                 key={index}
                 label={data.name}
-                value={data.id}
+                value={data.name}
               />
             );
           })}
@@ -206,7 +208,7 @@ export default function Wineries({ route, navigation }) {
 
         </Picker>
       </View>
-
+{catprod === true?
       <ScrollView style={{ flex: 1, marginTop: 5 }}>
         <View style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 0 }}>
 
@@ -216,37 +218,19 @@ export default function Wineries({ route, navigation }) {
         })} */}
 
 
-          <TouchableOpacity onPress={() => navigation.navigate('WineriesDetais', { code: html })}>
-            {occupationName === 'Burgundy' ?
+          <TouchableOpacity onPress={() => navigation.navigate('WineriesDetais', { code: categories[0].content.rendered , code1 : categories[0].excerpt.rendered})}>
+           
               <ImageOverlay
                 style={{ alignSelf: 'center' }}
-                source={require('../App/assets/f14ad708-8cd2-4189-a81e-169cf27e3921.png')}
+                source={{uri: selectedProduct}}
                 // source={{
                 //   uri: 'https://example.com/wp-content/uploads/2017/03/T_2_back-2.jpg',
                 // }}
                 height={2 * 100}
-                title="Burgundy"
+                title={categories[0].title.rendered}
                 titleStyle={{ fontSize: 18, textTransform: 'uppercase' }}
-              /> : null}
-            {occupationName === 'test_product' ?
-              <ImageOverlay
-                style={{ alignSelf: 'center' }}
-                source={require('../App/assets/a0285b0a-5208-415a-b765-0bd6d4f7c441.png')}
-                // source={{
-                //   uri: 'https://example.com/wp-content/uploads/2017/03/T_2_back-2.jpg',
-                // }}
-                height={2 * 100}
-                title="Champagne"
-                titleStyle={{ fontSize: 18, textTransform: 'uppercase' }}
-              /> : null}
-            {occupationName === 'Mobile' ?
-              <ImageOverlay
-                style={{ alignSelf: 'center' }}
-                source={require('../App/assets/70f27a1f-d022-466c-9a8d-53ceb037077d.png')}
-                height={2 * 100}
-                title="Beaujolais"
-                titleStyle={{ fontSize: 18, textTransform: 'uppercase' }}
-              /> : null}
+              /> 
+           
           </TouchableOpacity>
         </View>
 
@@ -255,7 +239,7 @@ export default function Wineries({ route, navigation }) {
           {categories.map((data, index) => {
 
             console.log("categories", data)
-            return <Text key={index} style={{ marginLeft: 10, color: '#505050', paddingTop: 15 }}>{data.name}</Text>
+            return <Text key={index} style={{ marginLeft: 10, color: '#505050', paddingTop: 15 }}>{data.title.rendered}</Text>
           })}
 
           {/* <Text style={{ marginLeft: 10, color: '#505050', paddingTop: 15 }}>Bachelet-Monnot (Maranges)</Text>
@@ -279,7 +263,7 @@ export default function Wineries({ route, navigation }) {
 
 
 
-      </ScrollView>
+      </ScrollView>: null }
     </SafeAreaView>
   );
 }

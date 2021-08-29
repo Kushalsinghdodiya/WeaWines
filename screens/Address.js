@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,12 +14,39 @@ import {Input, Button, Header} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icons from 'react-native-vector-icons/Entypo';
 import SafeAreaView from 'react-native-safe-area-view';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Card, CardItem, Container, } from 'native-base';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import axios from 'axios';
 export default function Address({route, navigation}) {
+  const [address, setAddress] = useState([]);
+  useEffect(async () => {
+    let token = await AsyncStorage.getItem('user_token',);
+    console.log("as",token)
+    var config = {
+      method: 'get',
+      url: 'https://weawines.shubhchintak.co/wp-json/letscms/v1/address/billing',
+      headers: { 
+        'letscms_token': token
+      }
+    };
+    
+    axios(config)
+   
+
+      .then((response) => {
+        console.log("adsss", response.data.data.address)
+        let arr = [];
+        arr = [response.data];
+        setAddress(response.data.data.address)
+
+      });
+
+
+  }, [])
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar barStyle="light-content" backgroundColor="#800101" />
@@ -29,6 +56,10 @@ export default function Address({route, navigation}) {
         /> */}
 
       <ScrollView>
+      { address.length > 0 ?
+      address.map((data, index) => {
+        return (
+        <View>
         <View style={{justifyContent: 'center', padding:10}}>
         <Card style={{ marginTop: 15, borderRadius: 10}}>
           <CardItem style={{flexDirection: 'row'}}>
@@ -132,7 +163,11 @@ export default function Address({route, navigation}) {
           </CardItem>
         </Card>
         </View>
+        </View>)}): <Text style={{marginLeft:15,marginTop:15,fontSize:18}}>No Address Found</Text> }
+
+       
       </ScrollView>
+      
     </SafeAreaView>
   );
 }

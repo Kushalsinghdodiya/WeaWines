@@ -40,33 +40,36 @@ export default function SignUp({ route, navigation }) {
     } else if (password !== cpass) {
       let msg = 'Password and Confirm Password Should Be Same';
       Notify(msg);
+    }
+      else if (password.length < 8) {
+        let msg = 'Password should be more than 8 characters';
+        Notify(msg);
     } else if (!isValid) {
       let msg = 'Invalid Email';
       Notify(msg);
     } else {
-      var body = {
-        first_name: firstname,
-        last_name : lastname,
-        username : firstname+lastname,
-        email: email,
-        password: password,
-        mobile_number: contactNo,
-      };
+      var formdata = new FormData();
+formdata.append("username", firstname+lastname);
+formdata.append("first_name", firstname);
+formdata.append("last_name",lastname);
+formdata.append("password", password);
+formdata.append("email", email);
+    
 
    
       axios({
         method: 'post',
         url: `${Vars.host}/wp-json/letscms/v1/auth/register`,
-        data: body,
-        headers: { 'Content-Type': 'application/json' },
+        data: formdata,
+        headers: { 'Content-Type': 'multipart/form-data' },
       })
         .then(function (response) {
           console.log(response.data);
-          if (response.data.status == 200) {
-            Notify(response.data.message);
+          if (response.status == 200) {
+            Notify("User Registered Successfully");
             navigation.navigate('SignIn');
           } else {
-            Notify(response.data.message);
+            Notify(response.message);
             return false;
           }
         })

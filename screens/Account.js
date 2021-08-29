@@ -128,7 +128,7 @@ export default function Account({route, navigation}) {
           }}
         />
 
-        <TouchableOpacity  onPress={() => navigation.navigate('MyRewardPoints')}>
+        {/* <TouchableOpacity  onPress={() => navigation.navigate('MyRewardPoints')}>
         <View style={{justifyContent:'space-between', flexDirection: 'row', padding: 5}}>
             <Text style={styles.options}>My Rewards </Text>
             <Image  source={require('../App/assets/Path153.png')} style={{height:12,width:12,marginTop:10}}/>
@@ -141,7 +141,7 @@ export default function Account({route, navigation}) {
             marginTop: 10,
             marginBottom: 10,
           }}
-        />
+        /> */}
         {/* <TouchableOpacity  onPress={() => navigation.navigate('MyRewards')}>
           <View style={{justifyContent:'space-between', flexDirection: 'row', padding: 5}}>
             <Text style={styles.options}>My Rewards </Text>

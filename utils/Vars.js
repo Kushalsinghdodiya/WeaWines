@@ -1,13 +1,13 @@
 
+
+
 export default {
-    host: 'https://weawines.shubhchintak.com/',
+    host: 'http://fmw.vxinfosystem.com/',
+    token:'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJJRCI6IjI0IiwidXNlcl9sb2dpbiI6InVzZXIwMDMzIiwidXNlcl9wYXNzIjoiJFAkQmpEWGN1dUpsM0hmYUtsdGdVLkxXS2NQVWJKOUFnXC8iLCJ1c2VyX25pY2VuYW1lIjoidXNlcjAwMzMiLCJ1c2VyX2VtYWlsIjoidXNlcjAwMzNAdGVzdC5jb20iLCJ1c2VyX3VybCI6IiIsInVzZXJfcmVnaXN0ZXJlZCI6IjIwMjEtMDgtMDUgMDg6MDQ6NTIiLCJ1c2VyX2FjdGl2YXRpb25fa2V5IjoiMTYyODE1MDY5MzokUCRCSktXT0o5S1lxaEFmVFEwSkVCbXd4NTNhdGh3Y0gxIiwidXNlcl9zdGF0dXMiOiIwIiwiZGlzcGxheV9uYW1lIjoidXNlcjAwMzMgVGVzdCIsImxhc3RfbG9naW4iOjE2MjgxNTA2OTV9.DytAZ-hCyt9xDdryKE8mtRBhW_kI5UjmCBejMHgJoXc3P6GnpEBLxX3RTQgjebVvf2mqdV8_7SBOSyFrml3hRh0__as8vkC0y3O6sYYZcZeEjvmoJFdw-E3wGaEl4eefZzGy78z9aRhQYTbhTcxaZ6ysOx5TfNR-UMnGHvRUTmZpJoJo9_RXWvOpZka8TEvAln1o_0HqHak3bReBtRrlCo0Dzx9QOnqHTwqfnazZuZWC4aRnGPGVIbk3q96LEWdgXftwje5jEeCOpWf3T60uc2Mh-ynJDEWK9w_nM-ULqOHMIxcdMECfGYXzoE2xpmzmzasYyu6xKJM3htawkPMqQZSDWJ0mf4cWam0cK1NnFqKipJ5Q99tBm7vjya1pdcWIEcVZJxo12EFq6Ayz4TGfltFtfMfxg_TxEUHmaRTwC50aQqYy-1V-R7Ou3qVf3UJ6YVQRlTlU0r6DTpesQt8qzf6LrPplBN2XgXbeShzi7HeI733-9o4hEhLv-6TxySXYrPxtTRK7axW2bn7h-Oy5GDCEfv3EJvmCFgNFpjTgsX7u3ZDJ2vHb0T3ST5yxGTtF6XQGl9Z9C3i7h1cm5qY4JqmLJGbVIx9_n7L0X6sxYnEoLH5yxJRTYLPHIbjwGEeSyQehqNqEDx9mH598QzJF3AJ-i2Uk1kbfHofXFxGax74'
 }
 
 
-// {
-//     "username": "qwerty",
-//     "first_name" : "qwerty",
-//     "last_name":"singh",
-//     "password":"12345678",
-//     "email":"qwertysingh@gmail.com"
-//     }
+
+
+  
+

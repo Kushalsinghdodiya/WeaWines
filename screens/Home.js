@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -9,65 +9,98 @@ import {
   View,
   ImageBackground,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import CardSilder from 'react-native-cards-slider';
 import WineriesDetail from './WineriesDetail';
 import ImageOverlay from 'react-native-image-overlay';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icons from 'react-native-vector-icons/Fontisto';
 import IconRight from 'react-native-vector-icons/AntDesign';
-import {widthPercentageToDP,heightPercentageToDP} from 'react-native-responsive-screen';
+import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
+import WooCommerceAPI from 'react-native-woocommerce-api';
+import axios from 'axios';
 
 export default function Home() {
+  const [newproductapi, setProductApi] = useState([])
+  const [newEvent, setEvents] = useState([])
+  const api = new WooCommerceAPI({
+    url: "http://18.217.240.195",
+    consumerKey: "ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826",
+    consumerSecret: "cs_446bb534522c3354236068c05a1e3c1103acdec0",
+    version: "wc/v3"
+  });
+  useEffect(async () => {
+
+
+    const res1 = await axios.get('https://weawines.shubhchintak.co/wp-json/wp/v2/posts')
+      .then((response) => {
+        //  console.log("adsssss", response.data)
+        let arr = [];
+        arr = [response.data];
+        setProductApi(response.data)
+
+      });
+    const res2 = await axios.get('https://weawines.shubhchintak.co/wp-json/jet-cct/events')
+      .then((response) => {
+        //  console.log("adsssss", response.data)
+        let arr = [];
+        arr = [response.data];
+        setEvents(response.data)
+
+      });
+
+  }, []);
+  console.log("asd", newEvent)
   return (
     <View style={styles.container}>
       <SafeAreaView>
         <StatusBar barStyle="light-content" backgroundColor="#192125" />
         <View
-        style={{
-          flexDirection: 'row',
-          width: widthPercentageToDP(100),
-          height: heightPercentageToDP(7),
-          alignSelf: 'center',
-          marginTop: -10,
-          backgroundColor: '#192125',
-          
-        }}>
-        <View
           style={{
-            justifyContent: 'flex-start',
-            width: widthPercentageToDP(80),
-          }}>
-          <Text
-            style={{
-             
-              marginLeft: 25,
-              color: 'white',
-              textAlign: 'left',
-              marginTop: 22,
-              alignSelf: 'flex-start',
-              fontSize: 18,
-            }}>
-           Hi, John Doe
-          </Text>
-        </View>
-        <View
-          style={{
-            justifyContent: 'center',
-            marginTop: 22,
             flexDirection: 'row',
+            width: widthPercentageToDP(100),
+            height: heightPercentageToDP(7),
+            alignSelf: 'center',
+            marginTop: -10,
+            backgroundColor: '#192125',
+
           }}>
-          <Image source={require('../App/assets/search_black_24dp.png')} />
-          <Image
-            style={{marginLeft: 10}}
-            source={require('../App/assets/shopping_bag_black_24dp.png')}
-          />
+          <View
+            style={{
+              justifyContent: 'flex-start',
+              width: widthPercentageToDP(80),
+            }}>
+            <Text
+              style={{
+
+                marginLeft: 25,
+                color: 'white',
+                textAlign: 'left',
+                marginTop: 22,
+                alignSelf: 'flex-start',
+                fontSize: 18,
+              }}>
+              Hi, John Doe
+            </Text>
+          </View>
+          <View
+            style={{
+              justifyContent: 'center',
+              marginTop: 22,
+              flexDirection: 'row',
+            }}>
+            <Image source={require('../App/assets/search_black_24dp.png')} />
+            <Image
+              style={{ marginLeft: 10 }}
+              source={require('../App/assets/shopping_bag_black_24dp.png')}
+            />
+          </View>
         </View>
-      </View> 
         <ScrollView
           contentContainerStyle={{
             justifyContent: 'center',
             width: widthPercentageToDP(100),
+            height: heightPercentageToDP(100)
           }}>
           <View style={styles.headerImageWrapper}>
             <ImageBackground
@@ -76,198 +109,84 @@ export default function Home() {
           </View>
 
           <CardSilder style={styles.headcard}>
-            <View>
-              <ImageBackground
-                imageStyle={{
-                  resizeMode: 'cover',
-                  overflow: 'hidden',
-                }}
-                style={styles.theheadercardImg}
-                source={require('../navigation/assets/images/cardbackground.jpg')}>
-                <View style={styles.row}>
-                  <View style={styles.col2}>
-                    <View style={styles.logoheader}>
-                      <Image
-                        style={styles.logoimg}
-                        source={require('../navigation/assets/images/logoheader.png')}
-                      />
+            {newproductapi.map((data, index) => {
+
+
+              return (
+                <View>
+                  <ImageBackground
+                    imageStyle={{
+                      resizeMode: 'cover',
+                      overflow: 'hidden',
+                    }}
+                    style={styles.theheadercardImg}
+                    source={require('../navigation/assets/images/cardbackground.jpg')}>
+                    <View style={styles.row}>
+                      <View style={styles.col2}>
+                        <View style={styles.logoheader}>
+                          <Image
+                            style={styles.logoimg}
+                            source={require('../navigation/assets/images/logoheader.png')}
+                          />
+                        </View>
+                      </View>
+
+                      <View
+                        style={{
+                          width: '50%',
+                          height: 150,
+                          display: 'flex',
+                          justifyContent: 'center',
+                          marginLeft: -13,
+                        }}>
+                        <Text style={styles.heading}>{data.title.rendered}</Text>
+                        {/* <Text style={styles.heading}>Release Allocation</Text> */}
+
+                        <View
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            marginTop: 10
+                          }}>
+                          <Text style={{ fontSize: 12, color: '#f5f6fa' }}>
+                            {'  '}
+                            <Icon name="user" size={14} color="white" /> Admin
+                          </Text>
+                          <Text style={{ fontSize: 12, color: '#f5f6fa' }}>
+                            {'   '}
+                            <Icon
+                              name="calendar-o"
+                              size={14}
+                              color="white"
+                              style={{ marginLeft: 5 }}
+                            />
+                            {" " + " 19 Jan 2021"}
+                          </Text>
+                        </View>
+
+                        <TouchableOpacity style={{ flexDirection: 'row', marginTop: 10 }}>
+                          <Text style={{ fontSize: 11, color: '#f5f6fa' }}>
+                            EXPLORE{'  '}
+                            <IconRight
+                              name="arrowright"
+                              style={{ paddingTop: 12 }}
+                              size={14}
+                              color="white"
+                            />
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                  </View>
-
-                  <View
-                    style={{
-                      width: '50%',
-                      height: 150,
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginLeft: -13,
-                    }}>
-                    <Text style={styles.heading}>Champagne Savart New</Text>
-                    <Text style={styles.heading}>Release Allocation</Text>
-
-                    <View
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        marginTop:10
-                      }}>
-                      <Text style={{fontSize: 12, color: '#f5f6fa'}}>
-                        {'  '}
-                        <Icon name="user" size={14} color="white" /> Admin
-                      </Text>
-                      <Text style={{fontSize: 12, color: '#f5f6fa'}}>
-                        {'   '}
-                        <Icon
-                          name="calendar-o"
-                          size={14}
-                          color="white"
-                          style={{marginLeft: 5}}
-                        />
-                       {" "+" 19 Jan 2021"}
-                      </Text>
-                    </View>
-
-                    <TouchableOpacity style={{flexDirection: 'row',marginTop:10}}>
-                      <Text style={{fontSize: 11, color: '#f5f6fa'}}>
-                        EXPLORE{'  '}
-                        <IconRight
-                          name="arrowright"
-                          style={{paddingTop: 12}}
-                          size={14}
-                          color="white"
-                        />
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
+                  </ImageBackground>
                 </View>
-              </ImageBackground>
-            </View>
+              );
+            })}
 
-            <View>
-              <ImageBackground
-                imageStyle={{
-                  resizeMode: 'cover',
-                  overflow: 'hidden',
-                }}
-                style={styles.theheadercardImg}
-                source={require('../navigation/assets/images/cardbackground.jpg')}>
-             <View style={styles.row}>
-                  <View style={styles.col2}>
-                    <View style={styles.logoheader}>
-                      <Image
-                        style={styles.logoimg}
-                        source={require('../navigation/assets/images/logoheader.png')}
-                      />
-                    </View>
-                  </View>
-
-                  <View
-                    style={{
-                      width: '50%',
-                      height: 150,
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginLeft: -13,
-                    }}>
-                    <Text style={styles.heading}>Champagne Savart New</Text>
-                    <Text style={styles.heading}>Release Allocation</Text>
-
-                    <View
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        marginTop:10
-                      }}>
-                      <Text style={{fontSize: 12, color: '#f5f6fa'}}>
-                        {'  '}
-                        <Icon name="user" size={14} color="white" /> Admin
-                      </Text>
-                      <Text style={{fontSize: 12, color: '#f5f6fa'}}>
-                        {'   '}
-                        <Icon
-                          name="calendar-o"
-                          size={14}
-                          color="white"
-                          style={{marginLeft: 5}}
-                        />
-                       {" "+" 19 Jan 2021"}
-                      </Text>
-                    </View>
-
-                    <TouchableOpacity style={{flexDirection: 'row',marginTop:10}}>
-                      <Text style={{fontSize: 11, color: '#f5f6fa'}}>
-                        EXPLORE{'  '}
-                        <IconRight
-                          name="arrowright"
-                          style={{paddingTop: 12}}
-                          size={14}
-                          color="white"
-                        />
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </ImageBackground>
-            </View>
-
-            <View>
-              <ImageBackground
-                imageStyle={{
-                  resizeMode: 'cover',
-                  overflow: 'hidden',
-                }}
-                style={styles.theheadercardImg}
-                source={require('../navigation/assets/images/cardbackground.jpg')}>
-                <View style={styles.row}>
-                  <View style={styles.col2}>
-                    <View style={styles.logoheader}>
-                      <Image
-                        style={styles.logoimg}
-                        source={require('../navigation/assets/images/logoheader.png')}
-                      />
-                    </View>
-                  </View>
-
-                  <View style={styles.col2}>
-                    <Text style={styles.heading}>Champagne Savart New</Text>
-                    <Text style={styles.heading}>Release Allocation</Text>
-                    <View
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text style={{fontSize: 15, color: '#f5f6fa'}}>
-                        {' '}
-                        <Icon name="user" size={18} color="black" /> Admin
-                      </Text>
-                      <Text style={{fontSize: 14, color: '#f5f6fa'}}>
-                        {' '}
-                        <Icon name="calendar-o" size={18} color="black" />
-                        19 Jan 2021
-                      </Text>
-                    </View>
-                    <TouchableOpacity>
-                      <Text style={{fontSize: 15, color: '#f5f6fa'}}>
-                        EXPLORE{' '}
-                        <Icon
-                          name="long-arrow-right"
-                          style={{margin: 14}}
-                          size={25}
-                          color="black"
-                        />
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </ImageBackground>
-            </View>
           </CardSilder>
 
-          <View style={{padding: 10, marginTop: -25}}>
-            <Text style={{fontSize: 16, margin: 10}}>
+          <View style={{ padding: 10, marginTop: -25 }}>
+            <Text style={{ fontSize: 16, margin: 10 }}>
               WEA from Home Subscription
             </Text>
           </View>
@@ -276,7 +195,7 @@ export default function Home() {
             <View style={styles.col}>
               <TouchableOpacity>
                 <ImageOverlay
-                  style={{alignSelf: 'center'}}
+                  style={{ alignSelf: 'center' }}
                   containerStyle={{
                     width: 165,
                     borderRadius: 10,
@@ -298,7 +217,7 @@ export default function Home() {
             <View style={styles.col}>
               <TouchableOpacity>
                 <ImageOverlay
-                  style={{alignSelf: 'center'}}
+                  style={{ alignSelf: 'center' }}
                   containerStyle={{
                     width: 165,
                     borderRadius: 10,
@@ -324,15 +243,15 @@ export default function Home() {
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
-              marginTop:20
+              marginTop: 20
             }}>
-            <View style={{width: '50%'}}>
-              <Text style={{fontSize: 16, margin: 10}}>Events </Text>
+            <View style={{ width: '50%' }}>
+              <Text style={{ fontSize: 16, margin: 10 }}>Events </Text>
             </View>
 
-            <View style={{width: '50%'}}>
+            <View style={{ width: '50%' }}>
               <TouchableOpacity>
-                <Text style={{textAlign: 'right', marginRight: 30}}>
+                <Text style={{ textAlign: 'right', marginRight: 30 }}>
                   <IconRight name="arrowright" size={20} color="black" />
                 </Text>
               </TouchableOpacity>
@@ -340,99 +259,45 @@ export default function Home() {
           </View>
 
           <CardSilder>
-            <TouchableOpacity>
-              <View style={styles.card}>
-                <ImageOverlay
-                  style={{alignSelf: 'center'}}
-                  containerStyle={{
-                    width: '100%',
-                    borderTopRightRadius: 15,
-                    borderTopLeftRadius: 15,
-                    marginLeft:'-2%'
-                  }}
-                  source={require('../navigation/assets/images/cardiimg.png')}
-                  height={1.8 * 100}
-                  overlayAlpha={0.6}
-                  title="Lorem ipsum dolor sit amet con..."
-                  contentPosition="bottom"
-                  titleStyle={{
-                    fontSize: 16,
-                    textTransform: 'uppercase',
-                    marginLeft: 0,
-                  }}
-                />
+            {newEvent.map((data, index) => {
 
-                <View style={styles.detailContainer}>
-                  <Text style={styles.text}>
-                    {' '}
-                    Le Bon Funk, 29 Club St, Singapore 069414
-                  </Text>
-                  <Text style={styles.text}>4 Mar 2021, Tue, 6-8pm</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
 
-            <TouchableOpacity>
-              <View style={styles.card}>
-                <ImageOverlay
-                  style={{alignSelf: 'center'}}
-                  containerStyle={{
-                    width: '100%',
-                    borderTopRightRadius: 15,
-                    borderTopLeftRadius: 15,
-                  }}
-                  source={require('../navigation/assets/images/cardiimg.png')}
-                  height={1.8 * 100}
-                  overlayAlpha={0.6}
-                  title="Lorem ipsum dolor sit amet con..."
-                  contentPosition="bottom"
-                  titleStyle={{
-                    fontSize: 16,
-                    textTransform: 'uppercase',
-                    marginLeft: 0,
-                  }}
-                />
+              return (
+                <TouchableOpacity>
+                  <View style={styles.card}>
+                    <ImageOverlay
+                      style={{ alignSelf: 'center' }}
+                      containerStyle={{
+                        width: '100%',
+                        borderTopRightRadius: 15,
+                        borderTopLeftRadius: 15,
+                        marginLeft: '-2%'
+                      }}
+                      source={require('../navigation/assets/images/cardiimg.png')}
+                      height={1.8 * 100}
+                      overlayAlpha={0.6}
+                      title={data.title}
+                      contentPosition="bottom"
+                      titleStyle={{
+                        fontSize: 16,
+                        textTransform: 'uppercase',
+                        marginLeft: 0,
+                      }}
+                    />
 
-                <View style={styles.detailContainer}>
-                  <Text style={styles.text}>
-                    {' '}
-                    Le Bon Funk, 29 Club St, Singapore 069414
-                  </Text>
-                  <Text style={styles.text}>4 Mar 2021, Tue, 6-8pm</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
+                    <View style={styles.detailContainer}>
+                      <Text style={styles.text}>
+                        {' '}
+                        {data.location}
+                      </Text>
+                      <Text style={styles.text}> {data.date + " " + data.time}</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
 
-            <TouchableOpacity>
-              <View style={styles.card}>
-                <ImageOverlay
-                  style={{alignSelf: 'center'}}
-                  containerStyle={{
-                    width: '100%',
-                    borderTopRightRadius: 15,
-                    borderTopLeftRadius: 15,
-                  }}
-                  source={require('../navigation/assets/images/cardiimg.png')}
-                  height={1.8 * 100}
-                  overlayAlpha={0.6}
-                  title="Lorem ipsum dolor sit amet con..."
-                  contentPosition="bottom"
-                  titleStyle={{
-                    fontSize: 16,
-                    textTransform: 'uppercase',
-                    marginLeft: 0,
-                  }}
-                />
-
-                <View style={styles.detailContainer}>
-                  <Text style={styles.text}>
-                    {' '}
-                    Le Bon Funk, 29 Club St, Singapore 069414
-                  </Text>
-                  <Text style={styles.text}>4 Mar 2021, Tue, 6-8pm</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
+           
           </CardSilder>
         </ScrollView>
       </SafeAreaView>
@@ -443,9 +308,9 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
+
     backgroundColor: '#dfe6e9',
-   
+
   },
   subcontain: {
     padding: 10,
@@ -454,7 +319,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#f5f6fa',
     marginBottom: 20,
-    
+
   },
   image: {
     width: '100%',
@@ -479,7 +344,7 @@ const styles = StyleSheet.create({
     width: '50%',
     height: 160,
     display: 'flex',
-   
+
     padding: 10,
   },
   imagerow: {
