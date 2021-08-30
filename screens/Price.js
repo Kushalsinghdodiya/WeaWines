@@ -90,6 +90,7 @@ export default function PriceList({route, navigation}) {
 
         if (response.data.status == true) {
           alert(response.data.message);
+             navigation.navigate('Checkout');
         } else {
         }
       })
@@ -97,7 +98,7 @@ export default function PriceList({route, navigation}) {
         console.log(response);
       });
 
-    // navigation.navigate('Checkout');
+  
   };
 
   const handleQuantity =(text,incprod)=> {

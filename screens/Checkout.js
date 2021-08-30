@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,13 +10,39 @@ import {
 } from 'react-native';
 import {Card, CardItem,Picker} from 'native-base';
 import {Input, Button,Checkbox} from 'react-native-elements';
-
+import Vars from '../utils/Vars';
 import SafeAreaView from 'react-native-safe-area-view';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
+import axios from 'axios';
+
 export default function Checkout() {
+const [data,setData]=useState([]);
+const [total,setTotal]=useState([]);
+
+useEffect(() => {
+  
+  axios.get(`http://fmw.vxinfosystem.com/wp-json/letscms/v1/checkout`,{
+    headers: {
+      letscms_token: `${Vars.token}`,
+    }
+  })
+      .then(response => {
+        let res=response.data.data.cart_items;
+        let totres=response.data.data.cart_totals
+       
+        console.log("this is response check out ",totres);
+        setData(res);
+        setTotal(totres);
+      });  
+
+
+}, [])
+
+
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar barStyle="light-content" backgroundColor="#800101" />
@@ -104,7 +130,7 @@ export default function Checkout() {
                 justifyContent: 'flex-start',
                 alignItems: 'flex-start',
               }}>
-              <View>
+              {/* <View>
                 <Text> Vintage 2018</Text>
                 <View
                   style={{
@@ -119,9 +145,30 @@ export default function Checkout() {
                     <Text style={{textAlign: 'right'}}> 1nos x $${''} 148</Text>
                   </View>
                 </View>
-              </View>
+              </View> */}
 
-              <View style={{marginTop: 10, marginBottom: 10}}>
+              {data.map((data,index)=>{
+
+                
+                 return  <View style={{marginTop: 10, marginBottom: 10}} key={data.product_id}>
+                          {/* <Text> Vintage 2018</Text> */}
+                          <View
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'row',
+                              justifyContent: 'space-evenly',
+                            }}>
+                            <View style={{width: '50%'}}>
+                              <Text> {data.product_name}</Text>
+                            </View>
+                            <View style={{width: '50%'}}>
+                              <Text style={{textAlign: 'right'}}> {data.quantity}nos x ${''} {data.product_price}</Text>
+                            </View>
+                          </View>
+                        </View>
+              })}
+
+              {/* <View style={{marginTop: 10, marginBottom: 10}}>
                 <Text> Vintage 2018</Text>
                 <View
                   style={{
@@ -136,10 +183,14 @@ export default function Checkout() {
                     <Text style={{textAlign: 'right'}}> 1nos x $${''} 148</Text>
                   </View>
                 </View>
-              </View>
+              </View> */}
+
+
               <View style={{marginTop: 10}}>
-                <Text> Vintage 2018</Text>
-                <View
+              
+              
+                {/* <Text> Vintage 2018</Text> */}
+                {/* <View
                   style={{
                     display: 'flex',
                     flexDirection: 'row',
@@ -152,7 +203,9 @@ export default function Checkout() {
                   <View style={{width: '50%'}}>
                     <Text style={{textAlign: 'right'}}> 1nos x $${''} 148</Text>
                   </View>
-                </View>
+                </View> */}
+
+
                 <View
                   style={{
                     borderWidth: 0.5,
@@ -161,6 +214,34 @@ export default function Checkout() {
                     marginBottom: 15,
                   }}
                 />
+
+
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                    marginBottom: 10,
+                  }}>
+                  <View style={{width: '50%'}}>
+                    <Text>Shipping</Text>
+                  </View>
+
+                  <View style={{width: '50%'}}>
+                    <Text
+                      style={{
+                        textAlign: 'right',
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                      }}>
+                      {''}
+                      ${' '}{total.shipping_total}
+                    </Text>
+                  </View>
+                </View>
+
+
+
                 <View
                   style={{
                     display: 'flex',
@@ -180,12 +261,16 @@ export default function Checkout() {
                         fontWeight: 'bold',
                       }}>
                       {' '}
-                      $S 364.00
+                      ${' '}{total.cart_contents_total}
                     </Text>
                   </View>
                 </View>
               </View>
             </CardItem>
+
+
+
+            
             <CardItem
               style={{
                 display: 'flex',
@@ -216,7 +301,7 @@ export default function Checkout() {
                         color: 'white',
                       }}>
                       {' '}
-                      $${''}365.00
+                      ${' '}{total.cart_contents_total}
                     </Text>
                   </View>
                 </View>
