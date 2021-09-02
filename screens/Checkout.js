@@ -21,6 +21,7 @@ import axios from 'axios';
 export default function Checkout() {
 const [data,setData]=useState([]);
 const [total,setTotal]=useState([]);
+const [shipping,setShipping]=useState([]);
 
 useEffect(() => {
   
@@ -28,16 +29,19 @@ useEffect(() => {
     headers: {
       letscms_token: `${Vars.token}`,
     }
-  })
-      .then(response => {
+  }).then(response => {
         let res=response.data.data.cart_items;
-        let totres=response.data.data.cart_totals
-       
-        console.log("this is response check out ",totres);
+        let totres=response.data.data.cart_totals;
+        let shipdetails=response.data.data.customer;
+        console.log("this is the response ", shipdetails);
+      
         setData(res);
         setTotal(totres);
+        setShipping(shipdetails);
       });  
 
+
+    
 
 }, [])
 

@@ -23,7 +23,7 @@ import _ from 'lodash'
 export default function SignIn({ route, navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [hidepass,setHidePass]=useState(true)
   const Notify = msg => {
     ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
   };
@@ -119,14 +119,15 @@ export default function SignIn({ route, navigation }) {
 
         <Input
           placeholder="Password"
-          secureTextEntry={true}
+          secureTextEntry={hidepass ? true :false}
           style={{ fontSize: 15, marginBottom: -20 }}
           rightIcon={
             <Icon
-              name="eye"
+              name={hidepass ? 'eye-slash' : 'eye'}
               size={20}
               style={{ marginBottom: -20 }}
               color="black"
+              onPress={()=>setHidePass(!hidepass)}
             />
           }
           onChangeText={pass => setPassword(pass)}

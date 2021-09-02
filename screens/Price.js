@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {
+  ActivityIndicator,
   StyleSheet,
+  ToastAndroid,
   Text,
   TouchableOpacity,
   View,
@@ -20,63 +22,81 @@ import Vars from '../utils/Vars';
 import SafeAreaView from 'react-native-safe-area-view';
 import ImageOverlay from 'react-native-image-overlay';
 import WooCommerceAPI from 'react-native-woocommerce-api';
-
 import axios from 'axios';
 
-const api = new WooCommerceAPI({
-  url: 'http://18.217.240.195',
-  consumerKey: 'ck_234a1d928528af0d9db1cdbd3593ec2fe8bd4826',
-  consumerSecret: 'cs_446bb534522c3354236068c05a1e3c1103acdec0',
-  version: 'wc/v3',
-});
 
 export default function PriceList({route, navigation}) {
+
   const [subCat, setSubCat] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  const [filterset,setfilterset]=useState('Select');
-
+  const [filterset, setfilterset] = useState('Select');
+  const [loading,setLoading]=useState(false);
  
   
+  const Notify = msg =>{
+    ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+  };
+
   useEffect(async () => {
     console.log(route);
-    if((route.params==undefined) || (route.params.filterData.length==0)){
-      let msg='Select'
+    setLoading(true);
+    if (route.params == undefined || route.params.filterData.length == 0) {
+      let msg = 'Select';
       setfilterset(msg);
       axios
-      .get(`http://fmw.vxinfosystem.com/wp-json/letscms/v1/products`)
-      .then(response => {
-        let arr = [];
-        arr = [response.data];
-       
-        setSubCat(response.data.data.products);
-      });
-    }else{
-      console.log(route);
-      const { filterData } =  route.params;
+        .get(`http://fmw.vxinfosystem.com/wp-json/letscms/v1/products`)
+        .then(response => {
+          // console.log("this is default fetch",response.data.data.products[0]);
+
+          let dupli = [];
+          let original = [...response.data.data.products];
+          original.map(function (obj) {
+            obj.quantity = '1';
+            dupli.push(obj);
+          });
+
+          let arr = [];
+          arr = [response.data];
+          setLoading(false);
+          setSubCat(response.data.data.products);
+         
+        });
+    } else {
+      setLoading(true);
+      const {filterData} = route.params;
       const uniqueSet = Array.from(new Set(filterData));
-  
-      console.log("this is params data",uniqueSet.toString() );
+
+      console.log('this is params data', uniqueSet.toString());
       setfilterset(uniqueSet.toString());
-       axios
-        .get(`http://fmw.vxinfosystem.com/wp-json/letscms/v1/products?categories=${uniqueSet.toString()}`)
+      axios
+        .get(
+          `http://fmw.vxinfosystem.com/wp-json/letscms/v1/products?categories=${uniqueSet.toString()}`,
+        )
         .then(response => {
           let arr = [];
           arr = [response.data];
+          
+          let dupli = [];
+          let original = [...response.data.data.products];
+          original.map(function (obj) {
+            obj.quantity = '1';
+            dupli.push(obj);
+          });
+
+          setLoading(false);
           setSubCat(response.data.data.products);
         });
     }
-
   }, []);
 
   const Addtocart = (pid, qty) => {
+    setLoading(true);
     var body = {
       product_id: pid,
       quantity: qty,
     };
 
-    console.log('this is body ', body);
-
-    axios({
+axios({
       method: 'post',
       url: `${Vars.host}wp-json/letscms/v1/cart/add-item`,
       data: body,
@@ -84,76 +104,73 @@ export default function PriceList({route, navigation}) {
         letscms_token: `${Vars.token}`,
         'Content-Type': 'application/json',
       },
-    })
-      .then(function (response) {
-        console.log(response);
-
+    }).then(function (response) {
         if (response.data.status == true) {
-          alert(response.data.message);
-             navigation.navigate('Checkout');
+          let msg = response.data.message;
+          setLoading(false);
+          Notify(msg);
+          navigation.navigate('Checkout')
         } else {
+          setLoading(false);
         }
       })
       .catch(function (response) {
         console.log(response);
+        setLoading(false);
       });
 
-  
+   
   };
 
-  const handleQuantity =(text,incprod)=> {
 
-    console.log("this is product id  ",incprod );
-    let newCart=JSON.parse(JSON.stringify(subCat));
-let index =newCart.findIndex(obj=>obj.id ===incprod);
-console.log("index postion is ",index);
+const handleQuantity = (text, incprod) => {
+  setLoading(true);
+    let newCart = JSON.parse(JSON.stringify(subCat));
+    let index = newCart.findIndex(obj => obj.id === incprod);
+   if (index >= 0) {
+      newCart[index].quantity = parseInt(newCart[index].quantity) + 1;
+      let msg = 'Product Quanity Increased';
+      setLoading(false);
+      Notify(msg);
+    }
+    setLoading(false);
+    setSubCat([...newCart]);
 
-if(index>=0){
-newCart[index].quantity=(newCart[index].quantity | 0) +1;
-}
-
-console.log("This is new array",newCart)
-    // axios({
-    //   method: 'post',
-    //   url: `${Vars.host}wp-json/letscms/v1/cart/update-quantities`,
-    //   data: body,
-    //   headers: {
-    //     letscms_token: `${Vars.token}`,
-    //     'Content-Type': 'application/json',
-    //   },
-    // })
-    //   .then(function (response) {
-    //     console.log(response);
-
-    //     if (response.data.status == true) {
-    //       alert(response.data.message);
-    //     } else {
-    //     }
-    //   })
-    //   .catch(function (response) {
-    //     console.log(response);
-    //   });
+};
 
 
-    let val = text;
-    // switch (val) {
-    //   case 'increase':
-    //     setQuantity(quantity + 1);
-    //     break;
-    //   case 'decrease':
-    //     if (quantity >= 1) {
-    //       setQuantity(quantity - 1);
-    //     }
-    //     break;
-    //   case 'default':
-    //     console.log('defuat case ');
-    //     break;
-    // }
-  };
+const  handleDecrease =(text,incprod,actul_val)=>{
+  setLoading(true);
+  if(actul_val==1){
+  let msg = 'Minimum quanity is 1';
+  Notify(msg);
+  }else{
+    let newCart = JSON.parse(JSON.stringify(subCat));
+    let index = newCart.findIndex(obj => obj.id === incprod);
+    if (index >= 0) {
+      newCart[index].quantity = parseInt(newCart[index].quantity) - 1;
+      let msg = 'Product Quanity Decreased';
+      setLoading(false);
+      Notify(msg);
+    }
+    setSubCat([...newCart]);
+}}
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+
+  <SafeAreaView style={{flex: 1}}>
       <StatusBar barStyle="light-content" backgroundColor="#800101" />
+     
+     {loading ? (
+      <View style={[styles.container_loader,styles.horizontal]}>
+         <ActivityIndicator size="large" color="#800101" />
+         <View >
+            <Text style={{textAlign:'center',fontSize:14,marginTop:10}}>Loading</Text>
+         </View>
+        
+      </View>
+     ):(
+       <>
       <View
         style={{
           flexDirection: 'row',
@@ -213,9 +230,12 @@ console.log("This is new array",newCart)
           <Text
             style={{
               color: '#2e2e2e',
-              fontSize: 14,
+              fontSize: 18,
               paddingTop: 10,
               paddingLeft: 20,
+              width:80,
+              overflow:'hidden',
+             
             }}>
             {filterset}
           </Text>
@@ -257,10 +277,13 @@ console.log("This is new array",newCart)
       </View>
       <Text
         style={{fontSize: 16, marginTop: 10, color: '#2e2e2e', paddingLeft: 3}}>
-        Antoine Jobard
+        {/* Antoine Jobard */}
       </Text>
       <ScrollView style={{flex: 1}}>
-        {subCat.map((data, index) => {
+        {(!subCat.length==0)?
+          
+          subCat.map((data, index) => {
+          
           return (
             <View key={index}>
               <Card style={{margin: 15, marginTop: 15, borderRadius: 4}}>
@@ -310,19 +333,19 @@ console.log("This is new array",newCart)
                   }}>
                   <Text style={{fontSize: 18}}>
                     <TouchableOpacity
-                      onPress={() => handleQuantity('decrease')}>
+                      onPress={() => handleDecrease('increase', data.id,data.quantity)}>
                       <Text>-</Text>
                     </TouchableOpacity>
                   </Text>
                   <Text
                     style={{marginLeft: widthPercentageToDP(15), fontSize: 18}}>
-                    {quantity}
+                    {data.quantity}
                   </Text>
 
                   <Text
                     style={{marginLeft: widthPercentageToDP(15), fontSize: 18}}>
                     <TouchableOpacity
-                      onPress={() => handleQuantity('increase',data.id)}>
+                      onPress={() => handleQuantity('increase', data.id)}>
                       <Text>+</Text>
                     </TouchableOpacity>
                   </Text>
@@ -340,7 +363,7 @@ console.log("This is new array",newCart)
                     color="#800101"
                   />
                   <TouchableOpacity
-                    onPress={() => Addtocart(data.id, quantity)}>
+                    onPress={() => Addtocart(data.id, data.quantity)}>
                     <Text style={{color: '#800101', marginLeft: 5}}>
                       Add to Cart
                     </Text>
@@ -349,7 +372,17 @@ console.log("This is new array",newCart)
               </Card>
             </View>
           );
-        })}
+        }) :
+        
+        <View style={[styles.container_loader,styles.horizontal]}>
+        
+         <View>
+            <Text style={{textAlign:'center',fontSize:14,marginTop:10}}>No Products Found</Text>
+         </View>
+        
+        </View>
+        
+        }
 
         {/* <Card style={{margin: 15, marginTop: 15, borderRadius: 4}}>
           <CardItem>
@@ -514,6 +547,11 @@ console.log("This is new array",newCart)
           </CardItem>
         </Card> */}
       </ScrollView>
+      </>
+     )
+
+     }
+     
     </SafeAreaView>
   );
 }
@@ -544,4 +582,14 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
   },
+  horizontal:{
+   flexDirection:'column',
+   justifyContent:'center',
+   padding:10,
+  
+  },
+  container_loader:{
+    flex:1,
+    justifyContent:'center'
+  }
 });
